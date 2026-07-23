@@ -1,3 +1,7 @@
 deps/freecad-mcp
 scripts/__pycache__
 ruvector.db
+.claude
+.claude-flow
+.swarm
+.agents/skills/ruflo
