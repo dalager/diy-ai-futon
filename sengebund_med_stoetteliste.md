@@ -45,7 +45,7 @@ derfor sidde 200 mm over gulv.
   bliver 340 mm med 70 mm lameller). Dens underkant ligger dermed ~225 mm over gulv
   — altså stadig godt over de 20 cm frihøjde.
 - **Fastgørelse af lameller:** to skruer 4,5 × 70 mm **op gennem støttelisten** ind i
-  hver lamelende (forbor Ø4 i listen ved hver lamelmidte, c/c 103 mm — hullerne bliver
+  hver lamelende (forbor Ø4 i listen ved hver lamelmidte, c/c 108 mm — hullerne bliver
   samtidig din afstands-skabelon). Forbor lamellen 3 mm. To skruer på tværs af den
   45 mm brede fod låser lamellen mod at vælte.
 - Sovehøjde ≈ 34 cm (bund) + 15–18 cm futon = **ca. 49–52 cm**. Vil du højere/
@@ -69,10 +69,10 @@ ikke støder ind i benene i hjørnerne. Mål er som bygget i CAD-modellen
 
 ## Lamelafstand og udluftning
 
-- **Lamel 45 mm + mellemrum ~58 mm → c/c ca. 103 mm** giver 17 lameller. Feltet er
-  rykket 40 mm ind fra benene i hver ende, så hjørneboltenes møtrikker har plads.
-  Åbningsareal ~56 % = god udluftning nedefra, hvilket er vigtigt for en futon
-  (den kan ellers samle fugt/mug mod en tæt bund).
+- **Lamel 45 mm + mellemrum ~63 mm → c/c ca. 108 mm** giver 17 lameller, der starter
+  lige ved benene. End-gabet (endestykke → første lamel) er ~70 mm = benets bredde,
+  altså næsten som de øvrige mellemrum. Åbningsareal ~58 % = god udluftning nedefra,
+  hvilket er vigtigt for en futon (den kan ellers samle fugt/mug mod en tæt bund).
 - 60 mm mellemrum er uproblematisk for en fast, tyk futon — den "hænger" ikke ned
   i mellemrummene.
 - Vil du have det tættere/blødere: gå ned mod 40 mm mellemrum (flere lameller,
@@ -112,14 +112,16 @@ Altså rigelig kapacitet uden at være overdimensioneret.
 |---------|------|-------|-----------|
 | Lamel → støtteliste | skrue 4,5 × 70, Ø4,5 | 17 × 2 × 2 = 68 | lodret op, 2 på tværs af 45 mm-foden |
 | Støtteliste → vange | skrue 4,5 × 70, Ø4,5 | 2 × 6 = 12 | vandret, fra listens inderside |
-| Vange → ben | **M10 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11 gennem vange + ben, møtrik på inderside, højde 225/280 |
-| Endestykke → ben | **M10 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11 gennem endestykke + ben, møtrik på inderside, højde 255/310 (forskudt) |
+| Vange → ben | **M10 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11 gennem vange + ben, møtrik på inderside, højde 230/285 |
+| Endestykke → ben | **M10 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11 gennem endestykke + ben, møtrik på inderside, højde 215/250 (under lamellerne) |
 
 **Hjørnerne boltes, ikke skrues** — de optager al vridning og skal kunne efterspændes
 og adskilles. Boltene (M10 × 140) går **lige igennem** ramme (45) + ben (70) = 115 mm;
 bræddebolt-hovedet sidder udenpå, spændeskive + møtrik på indersiden. Vange- og
-endestykkebolte er forskudt i højden, så de ikke krydser inde i benet, og lamelfeltet
-er rykket 40 mm ind, så møtrikkerne har plads. Forbor lamel/liste 3 mm mod flækning.
+endestykkebolte er forskudt i højden, så de ikke krydser inde i benet. Endestykke-
+boltene sidder desuden **under lamellernes underkant**, så møtrikkerne går fri af den
+første/sidste lamel — derfor kan lamellerne starte helt inde ved benet (intet spild-
+gab i enderne). Forbor lamel/liste 3 mm mod flækning.
 - Vil du helt undgå enhver fjedring i midten: en enkelt **langsgående midterdrager
   (45 × 70) med ét midterben** halverer lamelspændet og lader dig gøre alt endnu
   slankere/lettere. Ikke nødvendigt med ovenstående mål — det er et valg, ikke et

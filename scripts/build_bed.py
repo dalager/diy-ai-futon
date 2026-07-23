@@ -94,8 +94,9 @@ box("Stoetteliste_B", led_x0, outer_w - rt - P["ledger_t"], ledger_z,
     led_len, P["ledger_t"], P["ledger_h"], g_ledger)
 
 # --- slats (lameller) on edge, spanning the width, resting on the ledgers.
-# Inset from the legs so the corner through-bolt nuts have clearance.
-SLAT_INSET = 40.0
+# No inset: slats start at the leg. Corner bolt nuts clear the slats because
+# the endestykke bolts are kept below the slat underside (see Z_E).
+SLAT_INSET = 0.0
 slat_x0 = led_x0 + SLAT_INSET
 slat_field = led_len - 2 * SLAT_INSET
 n = P["n_slats"]
@@ -144,8 +145,12 @@ LA, LB = O("Stoetteliste_A"), O("Stoetteliste_B")
 #   endestykke bolts (X) are staggered in height so they don't cross in the leg.
 BOLT_R = 5.5                     # Ø11 for M10
 C = P["clearance"]
-Z_V = (C + 25, C + 80)           # vange bolt heights (offsets up the rail)
-Z_E = (C + 55, C + 110)          # endestykke bolt heights (staggered)
+Z_V = (C + 30, C + 85)           # vange bolt heights (at X=80, clear of slats)
+# endestykke bolts sit BELOW the slat underside (ledger_top=270) so their inner
+# nuts don't hit the first/last slat -> no slat inset needed. Lower one kept
+# clear of the rail underside (200); all four staggered so the corner holes
+# never overlap.
+Z_E = (C + 15, C + 50)           # 215 / 250 : below slats, clear of edges
 THRU = rt + P["leg"] + 8         # through rail (45) + leg (70) + a little
 
 
