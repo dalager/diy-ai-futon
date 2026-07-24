@@ -142,14 +142,75 @@ text(cX(115) + 16 * scc + 4, cZ(z_vange[1]), "møtrik + skive", 10, "start", "#1
 # dims
 dim_v(cZ(z_vange[0]), floorC, cX(-8) - 16, f"{z_vange[0]:.0f}")
 dim_v(cZ(z_vange[1]), floorC, cX(-8) - 46, f"{z_vange[1]:.0f}")
+dim_v(cZ(z_vange[0]), cZ(clearance), cX(-8) - 76, "30")
+dim_v(cZ(z_vange[1]), cZ(z_vange[0]), cX(-8) - 104, "45")
 dim_v(cZ(clearance), floorC, cX(150) + 22, f"{clearance:.0f}", left=False)
 dim_h(cX(0), cX(115), cZ(ftop) - 12, "Ø11 hul gennem 115 mm")
+text(cX(-8) - 104, cZ(ftop) - 30, "30/45 = målt fra vangens underkant", 10, "start", "#c0392b")
 text(Cx0 - 60, floorC + 40, "Ø11 boltehul lige igennem ramme (45) + ben (70). Bræddebolt-hoved "
      "udenpå, møtrik + skive på indersiden i lamel-mellemrummet. Endestykke→ben "
      f"er magen til, men bolte forskudt i højderne {z_ende[0]:.0f}/{z_ende[1]:.0f}, så de ikke krydser.",
      11, "start", "#333")
 
-W, H = 1060, 860
+# ============================================================= Panel D
+text(130, 900, "D · Boltplacering på vange og endestykke — opstalt udefra", 15, "start", "#111", "bold")
+sd = 0.40
+dxD = 130
+
+# --- vange (2010 x 95), set udefra; hoejder maalt fra underkant
+dyV = 995
+
+
+def vXp(x):
+    return dxD + x * sd
+
+
+def vZp(h):
+    return dyV - h * sd
+
+
+rect(vXp(0), vZp(95), 2010 * sd, 95 * sd, C_RAIL, "#222", 1.0)
+text(vXp(1005), vZp(95) - 8, "VANGE udefra (2 stk, ens i begge ender)", 11, "middle", "#333")
+for x in (80, 1930):
+    for h in (30, 75):
+        circ(vXp(x), vZp(h), 4)
+dim_h(vXp(0), vXp(80), dyV + 16, "80", above=False)
+dim_h(vXp(1930), vXp(2010), dyV + 16, "80", above=False)
+dim_v(vZp(30), dyV, vXp(80) - 26, "30")
+dim_v(vZp(75), vZp(30), vXp(80) - 54, "45")
+text(vXp(1005), dyV + 40, "4 × Ø11 gennemgående pr. vange (fortsætter ind i benet). Højder fra underkant.",
+     11, "middle", "#333")
+
+# --- endestykke (1810 x 95) inkl. midterdrager-skruer
+dyE = 1130
+
+
+def eXp(y):
+    return dxD + y * sd
+
+
+def eZp(h):
+    return dyE - h * sd
+
+
+rect(eXp(0), eZp(95), 1810 * sd, 95 * sd, C_RAIL, "#222", 1.0)
+text(eXp(905), eZp(95) - 8, "ENDESTYKKE udefra (2 stk)", 11, "middle", "#333")
+for y in (35, 1775):
+    for h in (15, 50):
+        circ(eXp(y), eZp(h), 4)
+for h in (23, 47):                       # midterdrager-skruer, midtfor
+    circ(eXp(905), eZp(h), 3, "#fff", "#1f6f9c")
+dim_h(eXp(0), eXp(35), dyE + 16, "35", above=False)
+dim_h(eXp(1775), eXp(1810), dyE + 16, "35", above=False)
+dim_h(eXp(0), eXp(905), dyE + 36, "905 (midt)", above=False)
+dim_v(eZp(15), dyE, eXp(35) - 26, "15")
+dim_v(eZp(50), eZp(15), eXp(35) - 54, "35")
+text(eXp(905), dyE + 62, "Ø11 hjørnebolte i højde 15/50 fra underkant · blå: 2 skruer 4,5×70 (Ø4 forbor) "
+     "midtfor i højde 23/47 ind i midterdragerens endetræ (+ vinkelbeslag).", 11, "middle", "#333")
+text(eXp(905), dyE + 82, "Lamel → midterdrager: 1 skrue 4,5×70 lodret ned midt i hver lamel, langs dragerens "
+     "centerlinje. Midterdrager → midterben: vinkelbeslag, ingen boring ovenfra.", 11, "middle", "#333")
+
+W, H = 1060, 1250
 out = "/home/dalager/projects/seng/cad/seng_let_boreplan.svg"
 body = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
         f'<rect x="0" y="0" width="{W}" height="{H}" fill="#ffffff"/>',

@@ -68,7 +68,7 @@ page_b.Template = tb
 
 symb = doc.addObject("TechDraw::DrawViewSymbol", "Boreplan_SVG")
 symb.Symbol = bore_content
-symb.Scale = 0.28           # 1060x780 px -> ~297x218 mm on A3
+symb.Scale = 0.21           # 1060x1250 px -> ~223x263 mm on A3
 symb.X = 210.0
 symb.Y = 150.0
 page_b.addView(symb)
