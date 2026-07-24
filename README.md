@@ -96,11 +96,17 @@ Farvepaletten (matcher tegningerne):
 ## Afhængigheder
 
 - **FreeCAD** (snap: `freecad.cmd` til headless build; GUI til renderinger).
-- **freecad-mcp** — renderingstrinnet styres via FreeCAD-MCP-serveren, så en
-  agent/klient kan genindlæse modellen, sætte farver og kalde `saveImage(...)` i den
-  kørende FreeCAD-GUI. Serveren ligger i `deps/freecad-mcp` og er konfigureret i
-  `.mcp.json`; FreeCAD-GUI'en skal køre med MCP-addon'et aktivt. (Selve build- og
-  tegningsscriptene kræver **ikke** MCP — kun de 8 screenshots i `cad/screenshots/`.)
+- **freecad-mcp** ([neka-nat/freecad-mcp](https://github.com/neka-nat/freecad-mcp)) —
+  renderingstrinnet styres via FreeCAD-MCP-serveren, så en agent/klient kan genindlæse
+  modellen, sætte farver og kalde `saveImage(...)` i den kørende FreeCAD-GUI.
+  **Serveren er ikke checket ind i dette repo** (ligger i `deps/freecad-mcp`, som er
+  git-ignoreret) — klon den fra upstream og konfigurér den i `.mcp.json`; FreeCAD-GUI'en
+  skal køre med MCP-addon'et aktivt:
+  ```bash
+  git clone https://github.com/neka-nat/freecad-mcp.git deps/freecad-mcp
+  ```
+  (Selve build- og tegningsscriptene kræver **ikke** MCP — kun de 8 screenshots i
+  `cad/screenshots/`.)
 - **Python** til tegningerne (kun standardbibliotek).
 - **PDF:** `markdown`, `pymdown-extensions` og `weasyprint` — installeret i pyenv-miljøet
   `~/.pyenv/versions/3.12.3`. Kør `make_pdf_let.py` med netop den python. Fonte:
