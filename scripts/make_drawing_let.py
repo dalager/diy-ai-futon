@@ -8,24 +8,24 @@ parameters used by build_bed.py. Pure Python, no FreeCAD needed.
 clearance = 200.0
 rail_h = 95.0                            # slimmer frame (light variant)
 rail_t = 45.0
-outer_len = 2010.0
-inner_w = 1810.0
+outer_len = 2000.0                       # udvendig laengde 200 cm (= madras)
+inner_w = 1710.0                         # -> outer_w = 1800 (udvendig bredde 180 cm)
 leg = 70.0                               # corner clearance -> slat field start (led_x0)
 leg_sx, leg_sy = 45.0, 95.0              # hjørneben fra afskær (X x Y)
-cleg_sx, cleg_sy = 70.0, 45.0            # midterben fra drager-afskær (X x Y)
+cleg_sx, cleg_sy = 45.0, 45.0            # midterben fra drager-afskær (45x45)
 ledger_t = 21.0
 ledger_h = 45.0
 slat_t = 45.0
 slat_h = 45.0                            # square slats (light variant)
 n_slats = 17
 drager_t = 45.0                          # centre beam width (Y)
-drager_h = 70.0                          # centre beam height (Z)
+drager_h = 45.0                          # centre beam height (Z) -- samme profil som lameller
 mat_l, mat_w, mat_h = 2000.0, 1800.0, 150.0
 
-outer_w = inner_w + 2 * rail_t          # 1900
-frame_top = clearance + rail_h          # 280 (rail top)
-slat_top = frame_top + 20.0             # sleeping surface (slats 20 mm proud)
-ledger_top = slat_top - slat_h          # ledger top supports slat bottom
+outer_w = inner_w + 2 * rail_t          # 1800
+frame_top = clearance + rail_h          # 295 (rail/end top)
+slat_top = frame_top                    # 295 sovflade -- lameller flugter med rammen
+ledger_top = slat_top - slat_h          # 250 ledger top supports slat bottom
 led_x0 = rail_t + leg                    # 115 (ledger start)
 led_len = (outer_len - rail_t - leg) - led_x0    # 1780 (ledger length)
 SLAT_INSET = 0.0
@@ -118,9 +118,9 @@ rect(fx((outer_len - mat_l) / 2), fy((outer_w - mat_w) / 2), mat_l * S, mat_w * 
      "none", "#2a6", 1.0, "6,4")
 text(fx(outer_len / 2), fy(outer_w / 2) + 4, "madras 2000 x 1800", 12, "middle", "#2a6")
 # dimensions
-dim_h(0, fx(outer_len), fy(outer_w) + 34, "2010")
-dim_v(0, fy(outer_w), -22, "1900")
-dim_v(fy(rail_t), fy(outer_w - rail_t), fx(outer_len) + 22, "1810 (indv.)", left=False)
+dim_h(0, fx(outer_len), fy(outer_w) + 34, f"{outer_len:.0f}")
+dim_v(0, fy(outer_w), -22, f"{outer_w:.0f}")
+dim_v(fy(rail_t), fy(outer_w - rail_t), fx(outer_len) + 22, f"{inner_w:.0f} (indv.)", left=False)
 # slat pitch between slat 5 and 6
 xa = fx(slat_x0 + 5 * pitch); xb = fx(slat_x0 + 6 * pitch)
 dim_h(xa, xb, -8, f"{pitch:.0f}")
@@ -153,7 +153,7 @@ for lx in (rail_t, outer_len - rail_t - leg_sx):
 rect(gx((outer_len - mat_l) / 2), gy(slat_top + mat_h), mat_l * S, mat_h * S,
      "none", "#2a6", 1.0, "6,4")
 # dims
-dim_h(0, gx(outer_len), gy(0) + 30, "2010")
+dim_h(0, gx(outer_len), gy(0) + 30, f"{outer_len:.0f}")
 dim_v(gy(clearance), gy(0), -18, f"{clearance:.0f}", left=True)
 dim_v(gy(frame_top), gy(clearance), -18, f"{rail_h:.0f}", left=True)
 dim_v(gy(0), gy(slat_top), gx(outer_len) + 20, f"{slat_top:.0f}", left=False)
@@ -184,7 +184,7 @@ for ly in (rail_t, outer_w - rail_t - leg_sy):
 rect(ux((outer_w - mat_w) / 2), uy(slat_top + mat_h), mat_w * S, mat_h * S,
      "none", "#2a6", 1.0, "6,4")
 # dims
-dim_h(0, ux(outer_w), uy(0) + 30, "1900")
+dim_h(0, ux(outer_w), uy(0) + 30, f"{outer_w:.0f}")
 dim_v(uy(clearance), uy(0), -18, f"{clearance:.0f}", left=True)
 dim_v(uy(slat_top), uy(slat_top - slat_h), ux(outer_w) + 20, f"{slat_h:.0f}", left=False)
 svg.append('</g>')
@@ -198,7 +198,7 @@ rows = [
     ("Endestykke", "2", f"{rail_t:.0f} x {rail_h:.0f}", f"{inner_w:.0f}"),
     ("Ben (hjørne, afskær)", "4", "45 x 95", f"{frame_top:.0f}"),
     ("Midterdrager", "1", f"{drager_t:.0f} x {drager_h:.0f}", f"{outer_len - 2 * rail_t:.0f}"),
-    ("Midterben (afskær)", "1", "70 x 45", f"{beam_z:.0f}"),
+    ("Midterben (afskær)", "1", "45 x 45", f"{beam_z:.0f}"),
     ("Støtteliste", "2", f"{ledger_t:.0f} x {ledger_h:.0f}", f"{led_len:.0f}"),
     ("Lamel", str(n_slats), f"{slat_t:.0f} x {slat_h:.0f}", f"{inner_w:.0f}"),
 ]

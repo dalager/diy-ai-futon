@@ -16,8 +16,8 @@ P = dict(
     clearance=200.0,     # 20 cm free height
     rail_h=95.0,         # slimmer frame (was 120)
     rail_t=45.0,
-    outer_len=2010.0,
-    inner_w=1810.0,
+    outer_len=2000.0,    # udvendig laengde 200 cm (= madras, flush)
+    inner_w=1710.0,      # -> outer_w = 1800 (udvendig bredde 180 cm)
     leg=70.0,
     ledger_t=21.0,
     ledger_h=45.0,
@@ -25,19 +25,19 @@ P = dict(
     slat_h=45.0,
     n_slats=17,
     drager_t=45.0,       # centre beam width (Y)
-    drager_h=70.0,       # centre beam height (Z)
+    drager_h=45.0,       # centre beam height (Z) -- samme profil som lameller
     mattress_l=2000.0, mattress_w=1800.0, mattress_h=150.0,
 )
 
 rt, lg = P["rail_t"], P["leg"]
-outer_w = P["inner_w"] + 2 * rt                    # 1900
-frame_top = P["clearance"] + P["rail_h"]           # 295
-slat_top = frame_top + 20.0                        # 315 sleeping surface
-ledger_top = slat_top - P["slat_h"]                # 270 slat underside
-ledger_z = ledger_top - P["ledger_h"]              # 225
-beam_z = ledger_top - P["drager_h"]                # 200 (= clearance)
-beam_y0 = (outer_w - P["drager_t"]) / 2.0          # 927.5
-cx_len = P["outer_len"] / 2.0                       # 1005
+outer_w = P["inner_w"] + 2 * rt                    # 1800
+frame_top = P["clearance"] + P["rail_h"]           # 295 (rail/end top)
+slat_top = frame_top                               # 295 sovflade -- lameller flugter med rammen
+ledger_top = slat_top - P["slat_h"]                # 250 slat underside
+ledger_z = ledger_top - P["ledger_h"]              # 205
+beam_z = ledger_top - P["drager_h"]                # 205 (>= clearance 200)
+beam_y0 = (outer_w - P["drager_t"]) / 2.0          # 877.5
+cx_len = P["outer_len"] / 2.0                       # 1000
 
 OUT_DIR = "/home/dalager/projects/seng/cad"
 FCSTD = os.path.join(OUT_DIR, "seng_let.FCStd")
@@ -83,9 +83,11 @@ for i, lx in enumerate(LX):
     for j, ly in enumerate(LY):
         box(f"Ben_{i}{j}", lx, ly, 0, leg_sx, leg_sy, frame_top, g_legs)
 
-# --- centre beam (midterdrager) + centre leg (45x70 from drager afskaer)
-box("Midterdrager", rt, beam_y0, beam_z, P["outer_len"] - 2 * rt, P["drager_t"], P["drager_h"], g_beam)
-cleg_sx, cleg_sy = 70.0, 45.0                       # 70 (X) x 45 (Y, matches drager)
+# --- centre beam (midterdrager) + centre leg (45x45 from drager afskaer)
+# NB: the box shares the label "Midterdrager" with its group, so a getObjectsByLabel
+# lookup would return the *group* first. Keep the box object directly instead.
+drager_box = box("Midterdrager", rt, beam_y0, beam_z, P["outer_len"] - 2 * rt, P["drager_t"], P["drager_h"], g_beam)
+cleg_sx, cleg_sy = 45.0, 45.0                       # 45x45 fra drager-afskaer (45x45)
 box("Midterben", cx_len - cleg_sx / 2, beam_y0, 0, cleg_sx, cleg_sy, beam_z, g_legs)
 
 # --- ledgers
@@ -130,7 +132,7 @@ VA, VB = O("Vange_A"), O("Vange_B")
 E1, E2 = O("Endestykke_1"), O("Endestykke_2")
 B00, B01, B10, B11 = O("Ben_00"), O("Ben_01"), O("Ben_10"), O("Ben_11")
 LA, LB = O("Stoetteliste_A"), O("Stoetteliste_B")
-DR, MB = O("Midterdrager"), O("Midterben")
+DR, MB = drager_box, O("Midterben")
 
 # corner M10 through-bolts (Ø11).
 #   vange bolt  : gennem vange(45) + ben(95) = 140 mm -> moetrik i Ø20 forsaenkning
@@ -172,7 +174,7 @@ vbolt(B11, VB, xcR, yB, -1);  ebolt(B11, E2, ycB, -1)
 z_led_mid = ledger_z + P["ledger_h"] / 2.0
 for x in (190, 520, 850, 1180, 1510, 1840):
     screw([LA, VA], (x, 69, z_led_mid), (0, -1, 0), 55)
-    screw([LB, VB], (x, 1831, z_led_mid), (0, 1, 0), 55)
+    screw([LB, VB], (x, outer_w - 69, z_led_mid), (0, 1, 0), 55)
 
 # lamel -> ledger (2 per end) + lamel -> centre beam (1 mid)
 z_j4 = ledger_z - 5.0
@@ -182,7 +184,7 @@ for i in range(n):
     Li = O("Lamel_%02d" % i)
     for dx in (-12, 12):
         screw([Li, LA], (xc + dx, 56, z_j4), (0, 0, 1), 72)
-        screw([Li, LB], (xc + dx, 1844, z_j4), (0, 0, 1), 72)
+        screw([Li, LB], (xc + dx, outer_w - 56, z_j4), (0, 0, 1), 72)
     # down through slat into the centre beam
     screw([Li, DR], (xc, ybeam, slat_top + 2), (0, 0, -1), 75)
 

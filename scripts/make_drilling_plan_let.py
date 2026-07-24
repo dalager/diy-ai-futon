@@ -10,8 +10,8 @@ Three detail panels:
 
 # ---- parameters (mirror build_bed.py) --------------------------------------
 slat_t, slat_h = 45.0, 45.0
-gap = 63.4
-pitch = 108.4
+gap = 62.8
+pitch = 107.8
 ledger_t, ledger_h = 21.0, 45.0
 clearance = 200.0
 z_vange = (clearance + 30.0, clearance + 75.0)   # vange bolt heights (rail=95)
@@ -96,7 +96,7 @@ text(ax, ay + 180, "2 skruer 4,5 × 70 pr. ende · Ø4 forbor i listen (= afstan
 # ============================================================= Panel B
 sb = 0.135
 bx, by = 130, 430
-led_len_mm = 1780.0
+led_len_mm = 1770.0
 text(bx, by - 22, "B · Støtteliste → vange — huller langs listen (6 stk)", 15, "start", "#111", "bold")
 rect(bx, by, led_len_mm * sb, 20, C_LEDGER, "#222", 0.8)
 hx = [bx + (x - led_start) * sb for x in ledger_screws_x]
@@ -104,7 +104,7 @@ for x in hx:
     circ(x, by + 10, 4)
 dim_h(bx, hx[0], by + 40, "190", above=False)
 dim_h(hx[0], hx[1], by + 40, "330 (c/c)", above=False)
-dim_h(bx, bx + led_len_mm * sb, by - 8, "1780 (liste)")
+dim_h(bx, bx + led_len_mm * sb, by - 8, f"{led_len_mm:.0f} (liste)")
 text(bx, by + 66, "Skru fra listens inderside vandret ind i vangen (skjult under lamellerne).",
      11, "start", "#333")
 
@@ -174,18 +174,18 @@ def vZp(h):
     return dyV - h * sd
 
 
-rect(vXp(0), vZp(95), 2010 * sd, 95 * sd, C_RAIL, "#222", 1.0)
-text(vXp(1005), vZp(95) - 8, "VANGE udefra (2 stk, ens i begge ender)", 11, "middle", "#333")
-for x in (67, 1943):
+rect(vXp(0), vZp(95), 2000 * sd, 95 * sd, C_RAIL, "#222", 1.0)
+text(vXp(1000), vZp(95) - 8, "VANGE udefra (2 stk, ens i begge ender)", 11, "middle", "#333")
+for x in (67, 1933):
     for h in (30, 75):
         circ(vXp(x), vZp(h), 4)
 dim_h(vXp(0), vXp(67), dyV + 16, "67", above=False)
-dim_h(vXp(1943), vXp(2010), dyV + 16, "67", above=False)
+dim_h(vXp(1933), vXp(2000), dyV + 16, "67", above=False)
 dim_v(vZp(30), dyV, vXp(67) - 26, "30")
 dim_v(vZp(75), vZp(30), vXp(67) - 54, "45")
-text(vXp(1005), dyV + 40, "4 × M10×140 gennemgående pr. vange (gennem 45+95=140 mm ben). Højder fra underkant.",
+text(vXp(1000), dyV + 40, "4 × M10×140 gennemgående pr. vange (gennem 45+95=140 mm ben). Højder fra underkant.",
      11, "middle", "#333")
-text(vXp(1005), dyV + 58, "På benets INDERSIDE: bor Ø20 forsænkning ~15 mm dyb ved hvert hul til møtrik + skive.",
+text(vXp(1000), dyV + 58, "På benets INDERSIDE: bor Ø20 forsænkning ~15 mm dyb ved hvert hul til møtrik + skive.",
      11, "middle", "#c0392b")
 
 # --- endestykke (1810 x 95) inkl. midterdrager-skruer
@@ -200,23 +200,23 @@ def eZp(h):
     return dyE - h * sd
 
 
-rect(eXp(0), eZp(95), 1810 * sd, 95 * sd, C_RAIL, "#222", 1.0)
-text(eXp(905), eZp(95) - 8, "ENDESTYKKE udefra (2 stk)", 11, "middle", "#333")
-for y in (47, 1763):
+rect(eXp(0), eZp(95), 1710 * sd, 95 * sd, C_RAIL, "#222", 1.0)
+text(eXp(855), eZp(95) - 8, "ENDESTYKKE udefra (2 stk)", 11, "middle", "#333")
+for y in (47, 1663):
     for h in (15, 50):
         circ(eXp(y), eZp(h), 4)
 for h in (23, 47):                       # midterdrager-skruer, midtfor
-    circ(eXp(905), eZp(h), 3, "#fff", "#1f6f9c")
+    circ(eXp(855), eZp(h), 3, "#fff", "#1f6f9c")
 dim_h(eXp(0), eXp(47), dyE + 16, "47", above=False)
-dim_h(eXp(1763), eXp(1810), dyE + 16, "47", above=False)
-dim_h(eXp(0), eXp(905), dyE + 36, "905 (midt)", above=False)
+dim_h(eXp(1663), eXp(1710), dyE + 16, "47", above=False)
+dim_h(eXp(0), eXp(855), dyE + 36, "855 (midt)", above=False)
 dim_v(eZp(15), dyE, eXp(47) - 26, "15")
 dim_v(eZp(50), eZp(15), eXp(47) - 54, "35")
-text(eXp(905), dyE + 62, "M10×100 hjørnebolte i højde 15/50 (gennem 45+45=90 mm ben, møtrik fladt, INGEN forsænkning) · "
+text(eXp(855), dyE + 62, "M10×100 hjørnebolte i højde 15/50 (gennem 45+45=90 mm ben, møtrik fladt, INGEN forsænkning) · "
      "blå: 2 skruer 4,5×70 (Ø4 forbor) midtfor i højde 23/47 ind i midterdragerens endetræ (+ vinkelbeslag).",
      11, "middle", "#333")
-text(eXp(905), dyE + 82, "Lamel → midterdrager: 1 skrue 4,5×70 lodret ned midt i hver lamel, langs dragerens "
-     "centerlinje. Midterdrager → midterben: vinkelbeslag, ingen boring ovenfra.", 11, "middle", "#333")
+text(eXp(855), dyE + 82, "Lamel → midterdrager: 1 skrue 4,5×70 lodret ned midt i hver lamel, langs dragerens "
+     "centerlinje. Midterdrager → midterben: 2 skruer 4,5×70 lodret ned (dragerhøjde 45 mm giver nu fat).", 11, "middle", "#333")
 
 W, H = 1060, 1250
 out = "/home/dalager/projects/seng/cad/seng_let_boreplan.svg"

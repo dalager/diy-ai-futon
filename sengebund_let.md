@@ -1,9 +1,11 @@
 # Sengebund LET variant — futon 200 × 180 cm
 
 Let, ubehandlet sengebund til en futon: slank 45×95-ramme, kvadratiske
-45×45-lameller og en langsgående **midterdrager på ét midterben**, der halverer
-lamelspændet. Ben skæres af afskær (45×95), ingen lim, ingen trykimprægneret træ.
-**Vægt ~52 kg.** CAD: `cad/seng_let.FCStd`, tegninger `cad/seng_let_tegning.svg` +
+45×45-lameller der **flugter med rammens overkant**, og en langsgående
+**midterdrager (45×45) på ét midterben**, der halverer lamelspændet. Udvendige mål
+**180 × 200 cm = madrasmålet** (madrassen ligger plant af med kanten, ingen liste
+op om). Ben skæres af afskær (45×95), ingen lim, ingen trykimprægneret træ.
+**Vægt ~48 kg.** CAD: `cad/seng_let.FCStd`, tegninger `cad/seng_let_tegning.svg` +
 `cad/seng_let_boreplan.svg`, indkøb i [BOM_let.md](BOM_let.md).
 
 ## Konstruktionsprincip
@@ -20,52 +22,54 @@ lamelspændet. Ben skæres af afskær (45×95), ingen lim, ingen trykimprægnere
 ```
 
 - **To vanger 45×95** med 4 hjørneben + **to endestykker** = stiv ramme.
-- **Midterdrager 45×70 på højkant** løber i længderetningen, centreret, båret af
-  ét **midterben** og fastgjort til endestykkerne. Lamellernes frie spænd falder
-  fra ~1780 mm til ~860 mm.
-- **Lameller 45×45**: det halverede spænd gør den lille kvadratiske profil stiv
-  nok — og kvadratisk tværsnit (slankhed 1:1) kan ikke vælte. Ingen indeslutning
-  af madrassen.
+- **Midterdrager 45×45** løber i længderetningen, centreret, båret af ét
+  **midterben** og fastgjort til endestykkerne. Lamellernes frie spænd falder
+  fra ~1710 mm til ~810 mm.
+- **Lameller 45×45** flugter med rammens overkant (top i kote 295): det halverede
+  spænd gør den lille kvadratiske profil stiv nok — og kvadratisk tværsnit
+  (slankhed 1:1) kan ikke vælte. Madrassen hviler plant på ramme + lameller i
+  samme kote, ingen indeslutning.
 
 ## Højde og frihøjde (20 cm til støvsugning)
 
 ```
-   top af lameller      315 mm  ┄┄┄┄ (sovefladen, før madras)
-   top af ramme         295 mm  ─────┐
-   lamel-underkant      270 mm       │  vange 95 mm
-   underkant ramme      200 mm  ─────┘  ← 20 cm FRIHØJDE
-   underkant drager     200 mm  ─────   ← drageren flugter med rammens underkant
-   gulv                   0 mm  ▂▂▂▂▂▂
+   top af lameller = top af ramme  295 mm  ┄┄┄┄ (sovefladen — lameller flugter med rammen)
+   lamel-underkant                 250 mm  ─────┐
+   støtteliste-overkant            250 mm       │  vange 95 mm
+   underkant ramme                 200 mm  ─────┘  ← 20 cm FRIHØJDE
+   underkant drager (45×45)        205 mm  ─────   ← 5 mm over rammens underkant
+   gulv                              0 mm  ▂▂▂▂▂▂
 ```
 
-- **Hjørneben = 200 + 95 = 295 mm. Midterben = 200 mm** (drageren 200→270,
-  overkant flugter med støttelisternes overkant i kote 270).
-- Frihøjden er præcis 200 mm overalt — også under drageren. Bemærk: **nul
-  margin**; på ujævnt gulv kan en robotstøvsuger på præcis 20 cm strejfe.
-- Sovehøjde ≈ 31,5 cm (bund) + 15–18 cm futon = **ca. 47–50 cm**.
+- **Hjørneben = 200 + 95 = 295 mm. Midterben = 205 mm** (drageren 45×45 sidder
+  205→250, overkant flugter med støttelisternes overkant i kote 250, som bærer
+  lamellerne).
+- Frihøjden er 200 mm under rammen og **205 mm under drageren** (5 mm margin — en
+  robotstøvsuger på 20 cm går fri overalt, også under midterdrageren).
+- Sovehøjde ≈ 29,5 cm (bund) + 15–18 cm futon = **ca. 44–48 cm**.
 
 ## Materialeliste (fyr/gran, høvlet)
 
 | Del | Antal | Dimension | Længde |
 |-----|-------|-----------|--------|
-| Vanger (langsider) | 2 | 45 × 95 mm | 201 cm |
-| Endestykker | 2 | 45 × 95 mm | 181 cm |
-| Lameller | 17 | 45 × 45 mm | 181 cm |
-| Midterdrager | 1 | 45 × 70 mm | 192 cm |
-| Støttelister | 2 | 21 × 45 mm | 178 cm |
+| Vanger (langsider) | 2 | 45 × 95 mm | 200 cm |
+| Endestykker | 2 | 45 × 95 mm | 171 cm |
+| Lameller | 17 | 45 × 45 mm | 171 cm |
+| Midterdrager | 1 | 45 × 45 mm | 191 cm |
+| Støttelister | 2 | 21 × 45 mm | 177 cm |
 | Hjørneben (af afskær) | 4 | 45 × 95 mm | 29,5 cm |
-| Midterben (af afskær) | 1 | 45 × 70 mm | 20 cm |
+| Midterben (af afskær) | 1 | 45 × 45 mm | 20,5 cm |
 
-Drageren (192 cm) løber mellem endestykkernes indersider. **Benene købes ikke —
+Drageren (191 cm) løber mellem endestykkernes indersider. **Benene købes ikke —
 de skæres af afskær** ♻️: de fire hjørneben (45×95) af vange-/endestykke-afskærene
-(390/390/590/590 mm), midterbenet (45×70) af drager-afskæret (480 mm). Ingen
+(400/400/690/690 mm), midterbenet (45×45) af drager-afskæret (490 mm). Ingen
 trykimprægneret stolpe, ingen lim. Hjørnebenet vender med 45 mm-fladen mod
 endestykket og 95 mm-fladen mod vangen. Mål som bygget i CAD-modellen
 (`cad/seng_let.FCStd`).
 
 ## Lamelafstand og udluftning
 
-- **Lamel 45 mm + mellemrum ~63 mm → c/c 108,4 mm** giver 17 lameller, der
+- **Lamel 45 mm + mellemrum ~63 mm → c/c 107,8 mm** giver 17 lameller, der
   starter 70 mm inde fra endestykket (symmetrisk hjørnezone i begge ender).
   Åbningsareal ~58 % = god udluftning nedefra — uproblematisk for en futon.
 - Vil du justere: `n_slats` i `scripts/build_bed_let.py` + genkør scriptsættet
@@ -76,14 +80,18 @@ endestykket og 95 mm-fladen mod vangen. Mål som bygget i CAD-modellen
 
 Kort statik-tjek (fyr, E ≈ 10 GPa), verificeret mod CAD-modellens geometri:
 
-- **Lameller 45 × 45, frit spænd 862 mm** (støtteliste → drager): 50 kg
-  punktlast midt på ét fag giver ~2 mm nedbøjning (grænse L/300 ≈ 2,9 mm).
+- **Lameller 45 × 45, frit spænd ~810 mm** (støtteliste → drager): 50 kg
+  punktlast midt på ét fag giver ~1,7 mm nedbøjning (grænse L/300 ≈ 2,7 mm).
   Lamellen er kontinuert over drageren, hvilket reelt gør den stivere endnu.
 - **Vælte-stabilitet:** 45 × 45 er kvadratisk (slankhed 1:1) — domino-problemet
   fra høje tynde lameller findes ikke. Skruerne i enderne er kun lås.
-- **Midterdrager 45 × 70 på højkant, 2 fag à ~935 mm:** bærer ~halvdelen af
-  totallasten; nedbøjning < 1 mm pr. fag.
-- **Vanger 45 × 95, spænd ~178 cm:** nedbøjning 1–2 mm ved fuld last —
+- **Midterdrager 45 × 45, 2 fag à ~955 mm:** bærer ~halvdelen af totallasten.
+  Kvadratisk 45×45 (mod den tidligere 45×70 på højkant) giver ~3–4 mm nedbøjning
+  pr. fag ved fuld last — **et grænsetilfælde omkring L/300 (~3,2 mm)**, men
+  uproblematisk under en eftergivende futon. Vil du have mere margin: sæt drageren
+  på højkant som 45×70 igen (koster 20 mm frihøjde under midten) eller tilføj et
+  andet midterben.
+- **Vanger 45 × 95, spænd ~191 cm:** nedbøjning 1–2 mm ved fuld last —
   drageren afstiver desuden i midten.
 
 ## Samlinger og stabilitet
@@ -96,9 +104,9 @@ Kort statik-tjek (fyr, E ≈ 10 GPa), verificeret mod CAD-modellens geometri:
 | Lamel → midterdrager | skrue 4,5 × 70 | 17 × 1 = 17 | lodret ned gennem lamel midtfor |
 | Støtteliste → vange | skrue 4,5 × 70 | 2 × 6 = 12 | vandret, fra listens inderside |
 | Midterdrager → endestykke | skrue 4,5 × 70 + **vinkelbeslag** | 4 + 2 beslag | vandret gennem endestykke i dragerens endetræ; beslag tager lasten |
-| Midterdrager → midterben | **vinkelbeslag** | 2 beslag | på dragerens sider ned på benet |
+| Midterdrager → midterben | skrue 4,5 × 70 lodret ned | 2 | ned gennem 45 mm drager → 25 mm fat i benet |
 | Vange → ben (95mm-akse) | **M10×140 bræddebolt + Ø20 forsænket møtrik** | 4 × 2 = 8 | Ø11, højde 230/275, møtrik i Ø20-lomme i benets inderside |
-| Endestykke → ben (45mm-akse) | **M10×100 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11, højde 215/250 (under lamellerne), møtrik fladt, ingen forsænkning |
+| Endestykke → ben (45mm-akse) | **M10×100 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11, højde 215/250 i endetræet (fri af lamellerne ved x≥115), møtrik fladt, ingen forsænkning |
 
 **Hjørnerne boltes.** Fordi benet er 45×95 af afskær, er de to akser forskellige:
 - **Vange-aksen:** M10 × 140 gennem vange (45) + ben (**95**) = 140 mm. Da bolten
@@ -107,8 +115,8 @@ Kort statik-tjek (fyr, E ≈ 10 GPa), verificeret mod CAD-modellens geometri:
 - **Endestykke-aksen:** M10 × **100** gennem endestykke (45) + ben (**45**) = 90 mm —
   møtrik sidder fladt på indersiden, ingen forsænkning. **Brug ikke M10×140 her** —
   den ville stritte ~50 mm bar gevind ind under lamellen (rammer den lige akkurat
-  ikke, men er grim og formålsløs). Boltene sidder under lamel-underkanten (270),
-  så møtrikkerne går fri af første/sidste lamel.
+  ikke, men er grim og formålsløs). Boltene sidder i endestykkets endetræ ved
+  x < 90, mens første/sidste lamel starter ved x = 115, så møtrikkerne går fri.
 
 ### To ting man skal vide, før man borer/skruer
 
@@ -117,23 +125,24 @@ Kort statik-tjek (fyr, E ≈ 10 GPa), verificeret mod CAD-modellens geometri:
    Ø11-hullerne, parret 230/215). Bor vinkelret — borelære eller
    søjleboremaskine — og bor alle 4 huller (+ de 2 Ø20-forsænkninger på
    vange-aksen) i et ben, **før** boltene sættes i.
-2. **Ingen lodrette 70 mm-skruer i midterbenet:** drageren er selv 70 mm høj,
-   så en 4,5 × 70 ovenfra får 0 mm fat i benet. Brug vinkelbeslag (eller
-   2 stk. 6 × 120 — modellens lodrette huller ved midterbenet passer til den
-   løsning).
+2. **Midterdrager → midterben skrues nu lodret ovenfra:** drageren er kun 45 mm
+   høj, så en 4,5 × 70 ned gennem drageren får ~25 mm fat i benet (2 skruer,
+   modellens lodrette huller ved midterbenet). Ingen vinkelbeslag nødvendigt her —
+   det var kun et krav dengang drageren var 70 mm høj.
 
 ## Kort specifikation
 
 | | |
 |---|---|
-| Vægt | ~52 kg |
+| Vægt | ~48 kg |
+| Udvendige mål | 180 × 200 cm (= madras, flush) |
 | Ramme | 45 × 95 |
-| Lameller | 17 × 45×45 kvadratisk |
-| Midtersupport | drager 45×70 + midterben |
+| Lameller | 17 × 45×45 kvadratisk, flugter med rammen |
+| Midtersupport | drager 45×45 + midterben |
 | Ben | 4 × 45×95 af **afskær** ♻️ (ubeh., ingen lim) |
-| Sovehøjde (bund) | 315 mm |
+| Sovehøjde (bund) | 295 mm |
 | Spalte | ~63 mm |
-| Pris (Silvan, jul. 2026) | ~1.623 kr |
+| Pris (Silvan, jul. 2026) | ~1.631 kr |
 
 Benene er 100 % ubehandlede afskær (ingen trykimprægneret stolpe, ingen lim). Se
 [BOM_let.md](BOM_let.md) for indkøbsliste og forbehold.
