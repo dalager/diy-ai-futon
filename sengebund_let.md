@@ -1,9 +1,9 @@
 # Sengebund LET variant — futon 200 × 180 cm
 
-Let udgave af [sengebund_med_stoetteliste.md](sengebund_med_stoetteliste.md):
-slankere 45×95-ramme, kvadratiske 45×45-lameller og en langsgående **midterdrager
-på ét midterben**, der halverer lamelspændet. **~52 kg** mod standarddesignets
-~72 kg. CAD: `cad/seng_let.FCStd`, tegninger `cad/seng_let_tegning.svg` +
+Let, ubehandlet sengebund til en futon: slank 45×95-ramme, kvadratiske
+45×45-lameller og en langsgående **midterdrager på ét midterben**, der halverer
+lamelspændet. Ben skæres af afskær (45×95), ingen lim, ingen trykimprægneret træ.
+**Vægt ~52 kg.** CAD: `cad/seng_let.FCStd`, tegninger `cad/seng_let_tegning.svg` +
 `cad/seng_let_boreplan.svg`, indkøb i [BOM_let.md](BOM_let.md).
 
 ## Konstruktionsprincip
@@ -19,8 +19,7 @@ på ét midterben**, der halverer lamelspændet. **~52 kg** mod standarddesignet
    ben        midterben         ben
 ```
 
-- **To vanger 45×95** med 4 hjørneben + **to endestykker** = stiv ramme (som
-  standarddesignet, blot 25 mm lavere profil).
+- **To vanger 45×95** med 4 hjørneben + **to endestykker** = stiv ramme.
 - **Midterdrager 45×70 på højkant** løber i længderetningen, centreret, båret af
   ét **midterben** og fastgjort til endestykkerne. Lamellernes frie spænd falder
   fra ~1780 mm til ~860 mm.
@@ -43,8 +42,7 @@ på ét midterben**, der halverer lamelspændet. **~52 kg** mod standarddesignet
   overkant flugter med støttelisternes overkant i kote 270).
 - Frihøjden er præcis 200 mm overalt — også under drageren. Bemærk: **nul
   margin**; på ujævnt gulv kan en robotstøvsuger på præcis 20 cm strejfe.
-- Sovehøjde ≈ 31,5 cm (bund) + 15–18 cm futon = **ca. 47–50 cm**
-  (2,5 cm lavere end standarddesignet).
+- Sovehøjde ≈ 31,5 cm (bund) + 15–18 cm futon = **ca. 47–50 cm**.
 
 ## Materialeliste (fyr/gran, høvlet)
 
@@ -69,8 +67,7 @@ endestykket og 95 mm-fladen mod vangen. Mål som bygget i CAD-modellen
 
 - **Lamel 45 mm + mellemrum ~63 mm → c/c 108,4 mm** giver 17 lameller, der
   starter 70 mm inde fra endestykket (symmetrisk hjørnezone i begge ender).
-  Åbningsareal ~58 % = god udluftning nedefra — samme spalte som
-  standarddesignet, uproblematisk for en futon.
+  Åbningsareal ~58 % = god udluftning nedefra — uproblematisk for en futon.
 - Vil du justere: `n_slats` i `scripts/build_bed_let.py` + genkør scriptsættet
   (16 lameller sparer ~1,7 kg og giver ~71 mm spalte — i den brede ende for en
   blød futon).
@@ -86,8 +83,8 @@ Kort statik-tjek (fyr, E ≈ 10 GPa), verificeret mod CAD-modellens geometri:
   fra høje tynde lameller findes ikke. Skruerne i enderne er kun lås.
 - **Midterdrager 45 × 70 på højkant, 2 fag à ~935 mm:** bærer ~halvdelen af
   totallasten; nedbøjning < 1 mm pr. fag.
-- **Vanger 45 × 95, spænd ~178 cm:** nedbøjning 1–2 mm ved fuld last. Den lette
-  ramme er marginalt mere "levende" end 45×120 — drageren kompenserer i midten.
+- **Vanger 45 × 95, spænd ~178 cm:** nedbøjning 1–2 mm ved fuld last —
+  drageren afstiver desuden i midten.
 
 ## Samlinger og stabilitet
 
@@ -103,8 +100,7 @@ Kort statik-tjek (fyr, E ≈ 10 GPa), verificeret mod CAD-modellens geometri:
 | Vange → ben (95mm-akse) | **M10×140 bræddebolt + Ø20 forsænket møtrik** | 4 × 2 = 8 | Ø11, højde 230/275, møtrik i Ø20-lomme i benets inderside |
 | Endestykke → ben (45mm-akse) | **M10×100 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11, højde 215/250 (under lamellerne), møtrik fladt, ingen forsænkning |
 
-**Hjørnerne boltes** som i standarddesignet, men benet er nu 45×95 af afskær, så
-de to akser er forskellige:
+**Hjørnerne boltes.** Fordi benet er 45×95 af afskær, er de to akser forskellige:
 - **Vange-aksen:** M10 × 140 gennem vange (45) + ben (**95**) = 140 mm. Da bolten
   præcis fylder hullet, sidder skive + møtrik i en **Ø20 forsænkning (~15 mm dyb)**
   boret i benets inderflade. (Vil du undgå forsænkning: brug M10 × 160 her.)
@@ -126,18 +122,18 @@ de to akser er forskellige:
    2 stk. 6 × 120 — modellens lodrette huller ved midterbenet passer til den
    løsning).
 
-## Forskelle fra standarddesignet — hurtig oversigt
+## Kort specifikation
 
-| | Standard (~72 kg) | Let (~52 kg) |
-|---|---|---|
-| Ramme | 45 × 120 | 45 × 95 |
-| Lameller | 17 × 45×70 på højkant | 17 × 45×45 kvadratisk |
-| Midtersupport | ingen | drager 45×70 + midterben |
-| Ben | 4 × 70×70 (trykimpr. stolpe) | 4 × 45×95 af **afskær** ♻️ (ubeh., ingen lim) |
-| Sovehøjde (bund) | 340 mm | 315 mm |
-| Spalte | ~63 mm | ~63 mm |
-| Pris (Silvan, jul. 2026) | ~1.590 kr | ~1.623 kr |
+| | |
+|---|---|
+| Vægt | ~52 kg |
+| Ramme | 45 × 95 |
+| Lameller | 17 × 45×45 kvadratisk |
+| Midtersupport | drager 45×70 + midterben |
+| Ben | 4 × 45×95 af **afskær** ♻️ (ubeh., ingen lim) |
+| Sovehøjde (bund) | 315 mm |
+| Spalte | ~63 mm |
+| Pris (Silvan, jul. 2026) | ~1.623 kr |
 
-Vægtbesparelsen (~20 kg) er gevinsten, og benene er nu 100 % ubehandlede afskær
-(ingen trykimprægneret stolpe, ingen lim). Prisen er stort set den samme. Se
+Benene er 100 % ubehandlede afskær (ingen trykimprægneret stolpe, ingen lim). Se
 [BOM_let.md](BOM_let.md) for indkøbsliste og forbehold.

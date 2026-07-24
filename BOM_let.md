@@ -2,7 +2,7 @@
 
 Til den lette variant (CAD: `cad/seng_let.FCStd`): slank 45×95 ramme, 17 kvadratiske
 45×45 lameller, midterdrager på ét midterben. **Ben skæres af afskær** (45×95) — ingen
-trykimprægneret stolpe, ingen lim. **Vægt ~52 kg** (mod ~72 kg for standarddesignet).
+trykimprægneret stolpe, ingen lim. **Vægt ~52 kg.**
 Priser fra Silvan.dk (juli 2026, ekskl. levering).
 
 ## Træ — Silvan.dk (fyr/gran, ubehandlet, høvlet)
@@ -18,7 +18,7 @@ Priser fra Silvan.dk (juli 2026, ekskl. levering).
 
 **Silvan i alt ≈ 1.623 kr** (ekskl. levering) — ingen benstolpe, benene bliver af afskær.
 
-## Købes udenbys (samme som standarddesignet)
+## Købes udenbys
 
 | Til | Vare | Antal | Ca. pris |
 |-----|------|-------|----------|
@@ -80,15 +80,13 @@ skive kan sidde forsænket. Endestykke-boltene går kun gennem 45+45 = 90 mm og 
 
 ## Ærlige forbehold
 
-- **Pris:** Den lette variant koster nu **cirka det samme** som standarddesignet
-  (~1.623 vs ~1.590 kr) — benene er gratis (afskær), men 45×45-lameller er dyre pr.
-  bræt. Du betaler ~samme pris for at spare ~20 kg og få et 100 % ubehandlet, lim-frit
-  design med genbrugte afskær.
+- **Pris:** ~1.623 kr i alt (Silvan) — benene er gratis (afskær), men 45×45-lameller
+  er dyre pr. bræt. Du får et 100 % ubehandlet, lim-frit design med genbrugte afskær.
 - **Ben af afskær (♻️):** ingen trykimprægneret stolpe, ingen lim. Ben-tværsnittet
-  bliver 45×95 (lidt slankere end 70×70, men rammen er en stiv boltet kasse, så
-  benene står i ren tryk — rigeligt). Ingen firkantet ubehandlet stolpe fandtes hos
-  jem&fix, Silvan eller Bauhaus; alle massive stolper er trykimprægneret eller malet.
-- **Lamelspalte ~63 mm** — samme som standarddesignet, uproblematisk for en futon.
+  er 45×95 (slankt, men rammen er en stiv boltet kasse, så benene står i ren tryk —
+  rigeligt). Ingen firkantet ubehandlet stolpe fandtes hos jem&fix, Silvan eller
+  Bauhaus; alle massive stolper er trykimprægneret eller malet.
+- **Lamelspalte ~63 mm** — uproblematisk for en futon.
 - **Midterdrager-samling:** drageren fastgøres til endestykker OG midterben med
   vinkelbeslag (se fastgørelsestabellen) — skruer i endetræ alene er svage, og
   lodrette skruer ovenfra i midterbenet er fysisk for korte.
