@@ -121,3 +121,7 @@ Farvepaletten (matcher tegningerne):
   kun give 180 mm frihøjde under midten; 45×45 bevarer 205 mm og bruger samme profil
   som lamellerne. Til gengæld er drageren et grænsetilfælde omkring L/300 — se
   statik-afsnittet i [sengebund_let.md](sengebund_let.md).
+
+## Licens
+
+[MIT](LICENSE) © 2026 Christian Dalager
