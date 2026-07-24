@@ -6,3 +6,4 @@ ruvector.db
 .swarm
 .agents/skills/ruflo
 *.FCBak
+__pycache__

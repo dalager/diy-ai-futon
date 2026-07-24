@@ -122,34 +122,39 @@ def cZ(z):
 
 
 ftop = clearance + 95.0          # frame/rail top (light variant)
-text(Cx0 - 60, cZ(ftop) - 26, "C · Hjørne (gavl-snit) — M10 gennemgående bræddebolt",
+text(Cx0 - 60, cZ(ftop) - 44, "C · Hjørne (vange-akse) — bolt gennem 45+95 mm ben",
      15, "start", "#111", "bold")
-# rail cross-section (Y 0..45, Z clearance..ftop) and leg (Y 45..115, Z 0..ftop)
+# vange cross-section (Y 0..45) and 45x95 leg (Y 45..140, Z 0..ftop)
 rect(cX(0), cZ(ftop), 45 * scc, (ftop - clearance) * scc, C_RAIL, "#222", 1.0)
 text(cX(22), cZ(ftop - 8), "vange", 10, "middle", "#333")
-rect(cX(45), cZ(ftop), 70 * scc, ftop * scc, C_LEG, "#222", 1.0)
-text(cX(80), cZ(clearance * 0.5), "ben", 11, "middle", "#333")
+rect(cX(45), cZ(ftop), 95 * scc, ftop * scc, C_LEG, "#222", 1.0)
+text(cX(92), cZ(clearance * 0.5), "ben 45×95", 11, "middle", "#333")
 # floor
-line(cX(-18), floorC, cX(150), floorC, "#111", 1.6)
+line(cX(-18), floorC, cX(175), floorC, "#111", 1.6)
 text(cX(-16), floorC + 15, "gulv", 10, "start", "#555")
-# 2 through-bolts (Ø11) all the way through rail + leg
+# 2 through-bolts (Ø11) through vange(45) + leg(95) = 140 mm, nut in Ø20 counterbore
 for z in z_vange:
-    line(cX(-8), cZ(z), cX(115), cZ(z), "#c0392b", 1.8)   # bolt shank
+    line(cX(-8), cZ(z), cX(140), cZ(z), "#c0392b", 1.8)   # bolt shank
     circ(cX(-8), cZ(z), 5, "#f3d6d6", "#c0392b")          # dome head (outside)
-    # washer + nut on the inner face (X=115), in the slat-inset gap
-    rect(cX(115), cZ(z) - 6, 16 * scc, 12 * scc, "#dbeaf2", "#1f6f9c", 1.2)
-text(cX(115) + 16 * scc + 4, cZ(z_vange[1]), "møtrik + skive", 10, "start", "#1f6f9c")
+    # Ø20 counterbore pocket cut into inner face (y 125..140)
+    rect(cX(125), cZ(z) - 10 * scc, 15 * scc, 20 * scc, "#ffffff", "#c0392b", 1.0, dash="3,2")
+    # washer + nut recessed in the pocket
+    rect(cX(127), cZ(z) - 6, 11 * scc, 12 * scc, "#dbeaf2", "#1f6f9c", 1.2)
+text(cX(140) + 6, cZ(z_vange[1]), "møtrik + skive", 10, "start", "#1f6f9c")
+text(cX(140) + 6, cZ(z_vange[1]) + 14, "i Ø20 forsænkning", 10, "start", "#1f6f9c")
 # dims
 dim_v(cZ(z_vange[0]), floorC, cX(-8) - 16, f"{z_vange[0]:.0f}")
 dim_v(cZ(z_vange[1]), floorC, cX(-8) - 46, f"{z_vange[1]:.0f}")
 dim_v(cZ(z_vange[0]), cZ(clearance), cX(-8) - 76, "30")
 dim_v(cZ(z_vange[1]), cZ(z_vange[0]), cX(-8) - 104, "45")
-dim_v(cZ(clearance), floorC, cX(150) + 22, f"{clearance:.0f}", left=False)
-dim_h(cX(0), cX(115), cZ(ftop) - 12, "Ø11 hul gennem 115 mm")
-text(cX(-8) - 104, cZ(ftop) - 30, "30/45 = målt fra vangens underkant", 10, "start", "#c0392b")
-text(Cx0 - 60, floorC + 40, "Ø11 boltehul lige igennem ramme (45) + ben (70). Bræddebolt-hoved "
-     "udenpå, møtrik + skive på indersiden i lamel-mellemrummet. Endestykke→ben "
-     f"er magen til, men bolte forskudt i højderne {z_ende[0]:.0f}/{z_ende[1]:.0f}, så de ikke krydser.",
+dim_v(cZ(clearance), floorC, cX(175) + 22, f"{clearance:.0f}", left=False)
+dim_h(cX(0), cX(140), cZ(ftop) - 14, "Ø11 hul gennem 140 mm (45+95)")
+text(Cx0 - 60, floorC + 40, "VANGE-AKSE: M10×140 bolt gennem vange (45) + ben (95) = 140 mm. Fordi "
+     "bolten præcis fylder hullet, sidder møtrik + skive i en Ø20 forsænkning (~15 mm dyb) "
+     "boret i benets inderflade. Bræddebolt-hoved udenpå vangen.", 11, "start", "#333")
+text(Cx0 - 60, floorC + 58, "ENDESTYKKE-AKSE (vinkelret): M10×100 bolt gennem endestykke (45) + ben (45) = 90 mm "
+     "— møtrik fladt, INGEN forsænkning (en 140 mm bolt ville stritte ~50 mm ind under lamellen). "
+     f"Højder 15/50, forskudt fra vange-boltene ({z_vange[0]:.0f}/{z_vange[1]:.0f}) så de ikke krydser.",
      11, "start", "#333")
 
 # ============================================================= Panel D
@@ -171,15 +176,17 @@ def vZp(h):
 
 rect(vXp(0), vZp(95), 2010 * sd, 95 * sd, C_RAIL, "#222", 1.0)
 text(vXp(1005), vZp(95) - 8, "VANGE udefra (2 stk, ens i begge ender)", 11, "middle", "#333")
-for x in (80, 1930):
+for x in (67, 1943):
     for h in (30, 75):
         circ(vXp(x), vZp(h), 4)
-dim_h(vXp(0), vXp(80), dyV + 16, "80", above=False)
-dim_h(vXp(1930), vXp(2010), dyV + 16, "80", above=False)
-dim_v(vZp(30), dyV, vXp(80) - 26, "30")
-dim_v(vZp(75), vZp(30), vXp(80) - 54, "45")
-text(vXp(1005), dyV + 40, "4 × Ø11 gennemgående pr. vange (fortsætter ind i benet). Højder fra underkant.",
+dim_h(vXp(0), vXp(67), dyV + 16, "67", above=False)
+dim_h(vXp(1943), vXp(2010), dyV + 16, "67", above=False)
+dim_v(vZp(30), dyV, vXp(67) - 26, "30")
+dim_v(vZp(75), vZp(30), vXp(67) - 54, "45")
+text(vXp(1005), dyV + 40, "4 × M10×140 gennemgående pr. vange (gennem 45+95=140 mm ben). Højder fra underkant.",
      11, "middle", "#333")
+text(vXp(1005), dyV + 58, "På benets INDERSIDE: bor Ø20 forsænkning ~15 mm dyb ved hvert hul til møtrik + skive.",
+     11, "middle", "#c0392b")
 
 # --- endestykke (1810 x 95) inkl. midterdrager-skruer
 dyE = 1130
@@ -195,18 +202,19 @@ def eZp(h):
 
 rect(eXp(0), eZp(95), 1810 * sd, 95 * sd, C_RAIL, "#222", 1.0)
 text(eXp(905), eZp(95) - 8, "ENDESTYKKE udefra (2 stk)", 11, "middle", "#333")
-for y in (35, 1775):
+for y in (47, 1763):
     for h in (15, 50):
         circ(eXp(y), eZp(h), 4)
 for h in (23, 47):                       # midterdrager-skruer, midtfor
     circ(eXp(905), eZp(h), 3, "#fff", "#1f6f9c")
-dim_h(eXp(0), eXp(35), dyE + 16, "35", above=False)
-dim_h(eXp(1775), eXp(1810), dyE + 16, "35", above=False)
+dim_h(eXp(0), eXp(47), dyE + 16, "47", above=False)
+dim_h(eXp(1763), eXp(1810), dyE + 16, "47", above=False)
 dim_h(eXp(0), eXp(905), dyE + 36, "905 (midt)", above=False)
-dim_v(eZp(15), dyE, eXp(35) - 26, "15")
-dim_v(eZp(50), eZp(15), eXp(35) - 54, "35")
-text(eXp(905), dyE + 62, "Ø11 hjørnebolte i højde 15/50 fra underkant · blå: 2 skruer 4,5×70 (Ø4 forbor) "
-     "midtfor i højde 23/47 ind i midterdragerens endetræ (+ vinkelbeslag).", 11, "middle", "#333")
+dim_v(eZp(15), dyE, eXp(47) - 26, "15")
+dim_v(eZp(50), eZp(15), eXp(47) - 54, "35")
+text(eXp(905), dyE + 62, "M10×100 hjørnebolte i højde 15/50 (gennem 45+45=90 mm ben, møtrik fladt, INGEN forsænkning) · "
+     "blå: 2 skruer 4,5×70 (Ø4 forbor) midtfor i højde 23/47 ind i midterdragerens endetræ (+ vinkelbeslag).",
+     11, "middle", "#333")
 text(eXp(905), dyE + 82, "Lamel → midterdrager: 1 skrue 4,5×70 lodret ned midt i hver lamel, langs dragerens "
      "centerlinje. Midterdrager → midterben: vinkelbeslag, ingen boring ovenfra.", 11, "middle", "#333")
 

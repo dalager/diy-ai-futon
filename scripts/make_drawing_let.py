@@ -10,7 +10,9 @@ rail_h = 95.0                            # slimmer frame (light variant)
 rail_t = 45.0
 outer_len = 2010.0
 inner_w = 1810.0
-leg = 70.0
+leg = 70.0                               # corner clearance -> slat field start (led_x0)
+leg_sx, leg_sy = 45.0, 95.0              # hjørneben fra afskær (X x Y)
+cleg_sx, cleg_sy = 70.0, 45.0            # midterben fra drager-afskær (X x Y)
 ledger_t = 21.0
 ledger_h = 45.0
 slat_t = 45.0
@@ -96,7 +98,7 @@ rect(fx(led_x0), fy(rail_t), led_len * S, ledger_t * S, C_LEDGER, "#222", 0.6)
 rect(fx(led_x0), fy(outer_w - rail_t - ledger_t), led_len * S, ledger_t * S, C_LEDGER, "#222", 0.6)
 # centre beam (under the slats) + centre leg
 rect(fx(rail_t), fy(beam_y0), (outer_len - 2 * rail_t) * S, drager_t * S, C_BEAM, "#222", 0.6)
-rect(fx(cx_len - leg / 2), fy((outer_w - leg) / 2), leg * S, leg * S, "none", "#666", 0.7, "3,3")
+rect(fx(cx_len - cleg_sx / 2), fy((outer_w - cleg_sy) / 2), cleg_sx * S, cleg_sy * S, "none", "#666", 0.7, "3,3")
 text(fx(cx_len), fy(beam_y0) - 4, "midterdrager", 11, "middle", "#7a5")
 # slats
 for i in range(n_slats):
@@ -107,10 +109,10 @@ rect(0, 0, outer_len * S, rail_t * S, C_RAIL, "#222", 1.0)
 rect(0, fy(outer_w - rail_t), outer_len * S, rail_t * S, C_RAIL, "#222", 1.0)
 rect(0, fy(rail_t), rail_t * S, inner_w * S, C_RAIL, "#222", 1.0)
 rect(fx(outer_len - rail_t), fy(rail_t), rail_t * S, inner_w * S, C_RAIL, "#222", 1.0)
-# legs
-for lx in (rail_t, outer_len - rail_t - leg):
-    for ly in (rail_t, outer_w - rail_t - leg):
-        rect(fx(lx), fy(ly), leg * S, leg * S, C_LEG, "#222", 0.8)
+# legs (45x95 corner)
+for lx in (rail_t, outer_len - rail_t - leg_sx):
+    for ly in (rail_t, outer_w - rail_t - leg_sy):
+        rect(fx(lx), fy(ly), leg_sx * S, leg_sy * S, C_LEG, "#222", 0.8)
 # mattress outline
 rect(fx((outer_len - mat_l) / 2), fy((outer_w - mat_w) / 2), mat_l * S, mat_w * S,
      "none", "#2a6", 1.0, "6,4")
@@ -139,14 +141,14 @@ rect(gx(led_x0), gy(ledger_top), led_len * S, ledger_h * S, C_LEDGER, "#999", 0.
 rect(0, gy(frame_top), outer_len * S, rail_h * S, C_RAIL, "#222", 1.0)
 # centre beam (under slats) + centre leg
 rect(gx(rail_t), gy(ledger_top), (outer_len - 2 * rail_t) * S, drager_h * S, C_BEAM, "#222", 0.8)
-rect(gx(cx_len - leg / 2), gy(beam_z), leg * S, beam_z * S, C_LEG, "#222", 0.9)
+rect(gx(cx_len - cleg_sx / 2), gy(beam_z), cleg_sx * S, beam_z * S, C_LEG, "#222", 0.9)
 # slats on edge
 for i in range(n_slats):
     x = slat_x0 + i * pitch
     rect(gx(x), gy(slat_top), slat_t * S, slat_h * S, C_SLAT, "#555", 0.5)
-# legs
-for lx in (rail_t, outer_len - rail_t - leg):
-    rect(gx(lx), gy(frame_top), leg * S, frame_top * S, C_LEG, "#222", 0.9)
+# legs (45 mm seen from the long side)
+for lx in (rail_t, outer_len - rail_t - leg_sx):
+    rect(gx(lx), gy(frame_top), leg_sx * S, frame_top * S, C_LEG, "#222", 0.9)
 # mattress
 rect(gx((outer_len - mat_l) / 2), gy(slat_top + mat_h), mat_l * S, mat_h * S,
      "none", "#2a6", 1.0, "6,4")
@@ -174,10 +176,10 @@ rect(ux(0), uy(frame_top), rail_t * S, rail_h * S, C_RAIL, "#222", 1.0)
 rect(ux(outer_w - rail_t), uy(frame_top), rail_t * S, rail_h * S, C_RAIL, "#222", 1.0)
 # centre beam (section) + centre leg
 rect(ux(beam_y0), uy(ledger_top), drager_t * S, drager_h * S, C_BEAM, "#222", 0.9)
-rect(ux((outer_w - leg) / 2), uy(beam_z), leg * S, beam_z * S, C_LEG, "#222", 0.9)
-# legs
-for ly in (rail_t, outer_w - rail_t - leg):
-    rect(ux(ly), uy(frame_top), leg * S, frame_top * S, C_LEG, "#222", 0.9)
+rect(ux((outer_w - cleg_sy) / 2), uy(beam_z), cleg_sy * S, beam_z * S, C_LEG, "#222", 0.9)
+# legs (95 mm seen from the end)
+for ly in (rail_t, outer_w - rail_t - leg_sy):
+    rect(ux(ly), uy(frame_top), leg_sy * S, frame_top * S, C_LEG, "#222", 0.9)
 # mattress
 rect(ux((outer_w - mat_w) / 2), uy(slat_top + mat_h), mat_w * S, mat_h * S,
      "none", "#2a6", 1.0, "6,4")
@@ -194,9 +196,9 @@ rows = [
     ("Del", "Antal", "Dimension", "Længde"),
     ("Vange (langside)", "2", f"{rail_t:.0f} x {rail_h:.0f}", f"{outer_len:.0f}"),
     ("Endestykke", "2", f"{rail_t:.0f} x {rail_h:.0f}", f"{inner_w:.0f}"),
-    ("Ben (hjørne)", "4", "70 x 70", f"{frame_top:.0f}"),
+    ("Ben (hjørne, afskær)", "4", "45 x 95", f"{frame_top:.0f}"),
     ("Midterdrager", "1", f"{drager_t:.0f} x {drager_h:.0f}", f"{outer_len - 2 * rail_t:.0f}"),
-    ("Midterben", "1", "70 x 70", f"{beam_z:.0f}"),
+    ("Midterben (afskær)", "1", "70 x 45", f"{beam_z:.0f}"),
     ("Støtteliste", "2", f"{ledger_t:.0f} x {ledger_h:.0f}", f"{led_len:.0f}"),
     ("Lamel", str(n_slats), f"{slat_t:.0f} x {slat_h:.0f}", f"{inner_w:.0f}"),
 ]
@@ -225,7 +227,8 @@ notes = [
     f"Lamel c/c: {pitch:.0f} mm — spalte {gap:.0f} mm — åbning ~{gap/pitch*100:.0f}%",
     "Let variant: 45x45 lameller + midterdrager",
     "på ét midterben (halverer lamelspændet).",
-    "Ramme + lameller skruet = låst mod skævning.",
+    "Ben af afskær (45x95) — ubehandlet, ingen lim.",
+    "Vange-bolt: møtrik i Ø20 forsænkning i benet.",
 ]
 for i, nline in enumerate(notes):
     text(0, len(rows) * rh + 14 + i * 18, nline, 12, "start", "#333")

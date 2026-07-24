@@ -2,7 +2,7 @@
 
 Let udgave af [sengebund_med_stoetteliste.md](sengebund_med_stoetteliste.md):
 slankere 45×95-ramme, kvadratiske 45×45-lameller og en langsgående **midterdrager
-på ét midterben**, der halverer lamelspændet. **~54 kg** mod standarddesignets
+på ét midterben**, der halverer lamelspændet. **~52 kg** mod standarddesignets
 ~72 kg. CAD: `cad/seng_let.FCStd`, tegninger `cad/seng_let_tegning.svg` +
 `cad/seng_let_boreplan.svg`, indkøb i [BOM_let.md](BOM_let.md).
 
@@ -55,17 +55,20 @@ på ét midterben**, der halverer lamelspændet. **~54 kg** mod standarddesignet
 | Lameller | 17 | 45 × 45 mm | 181 cm |
 | Midterdrager | 1 | 45 × 70 mm | 192 cm |
 | Støttelister | 2 | 21 × 45 mm | 178 cm |
-| Hjørneben | 4 | 70 × 70 mm | 29,5 cm |
-| Midterben | 1 | 70 × 70 mm | 20 cm |
+| Hjørneben (af afskær) | 4 | 45 × 95 mm | 29,5 cm |
+| Midterben (af afskær) | 1 | 45 × 70 mm | 20 cm |
 
-Drageren (192 cm) løber mellem endestykkernes indersider. Alle 5 ben skæres af
-én 70×70×2100-stolpe (4 × 295 + 1 × 200 = 1380 mm). Mål som bygget i
-CAD-modellen (`cad/seng_let.FCStd`).
+Drageren (192 cm) løber mellem endestykkernes indersider. **Benene købes ikke —
+de skæres af afskær** ♻️: de fire hjørneben (45×95) af vange-/endestykke-afskærene
+(390/390/590/590 mm), midterbenet (45×70) af drager-afskæret (480 mm). Ingen
+trykimprægneret stolpe, ingen lim. Hjørnebenet vender med 45 mm-fladen mod
+endestykket og 95 mm-fladen mod vangen. Mål som bygget i CAD-modellen
+(`cad/seng_let.FCStd`).
 
 ## Lamelafstand og udluftning
 
 - **Lamel 45 mm + mellemrum ~63 mm → c/c 108,4 mm** giver 17 lameller, der
-  starter lige ved benene (end-gab 70 mm = benets bredde, symmetrisk).
+  starter 70 mm inde fra endestykket (symmetrisk hjørnezone i begge ender).
   Åbningsareal ~58 % = god udluftning nedefra — samme spalte som
   standarddesignet, uproblematisk for en futon.
 - Vil du justere: `n_slats` i `scripts/build_bed_let.py` + genkør scriptsættet
@@ -97,20 +100,27 @@ Kort statik-tjek (fyr, E ≈ 10 GPa), verificeret mod CAD-modellens geometri:
 | Støtteliste → vange | skrue 4,5 × 70 | 2 × 6 = 12 | vandret, fra listens inderside |
 | Midterdrager → endestykke | skrue 4,5 × 70 + **vinkelbeslag** | 4 + 2 beslag | vandret gennem endestykke i dragerens endetræ; beslag tager lasten |
 | Midterdrager → midterben | **vinkelbeslag** | 2 beslag | på dragerens sider ned på benet |
-| Vange → ben | **M10 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11, højde 230/275, møtrik på inderside |
-| Endestykke → ben | **M10 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11, højde 215/250 (under lamellerne) |
+| Vange → ben (95mm-akse) | **M10×140 bræddebolt + Ø20 forsænket møtrik** | 4 × 2 = 8 | Ø11, højde 230/275, møtrik i Ø20-lomme i benets inderside |
+| Endestykke → ben (45mm-akse) | **M10×100 bræddebolt, gennemgående** | 4 × 2 = 8 | Ø11, højde 215/250 (under lamellerne), møtrik fladt, ingen forsænkning |
 
-**Hjørnerne boltes** som i standarddesignet: M10 × 140 lige gennem ramme (45) +
-ben (70) = 115 mm, bræddebolt-hoved udenpå, skive + møtrik på indersiden.
-Endestykke-boltene sidder under lamel-underkanten (270), så møtrikkerne går fri
-af første/sidste lamel.
+**Hjørnerne boltes** som i standarddesignet, men benet er nu 45×95 af afskær, så
+de to akser er forskellige:
+- **Vange-aksen:** M10 × 140 gennem vange (45) + ben (**95**) = 140 mm. Da bolten
+  præcis fylder hullet, sidder skive + møtrik i en **Ø20 forsænkning (~15 mm dyb)**
+  boret i benets inderflade. (Vil du undgå forsænkning: brug M10 × 160 her.)
+- **Endestykke-aksen:** M10 × **100** gennem endestykke (45) + ben (**45**) = 90 mm —
+  møtrik sidder fladt på indersiden, ingen forsænkning. **Brug ikke M10×140 her** —
+  den ville stritte ~50 mm bar gevind ind under lamellen (rammer den lige akkurat
+  ikke, men er grim og formålsløs). Boltene sidder under lamel-underkanten (270),
+  så møtrikkerne går fri af første/sidste lamel.
 
 ### To ting man skal vide, før man borer/skruer
 
 1. **Boltkryds i benene:** vange- og endestykke-boltene krydser hinanden
    vinkelret inde i benet med kun **15 mm lodret afstand** (4 mm træ mellem
    Ø11-hullerne, parret 230/215). Bor vinkelret — borelære eller
-   søjleboremaskine — og bor alle 4 huller i et ben, **før** boltene sættes i.
+   søjleboremaskine — og bor alle 4 huller (+ de 2 Ø20-forsænkninger på
+   vange-aksen) i et ben, **før** boltene sættes i.
 2. **Ingen lodrette 70 mm-skruer i midterbenet:** drageren er selv 70 mm høj,
    så en 4,5 × 70 ovenfra får 0 mm fat i benet. Brug vinkelbeslag (eller
    2 stk. 6 × 120 — modellens lodrette huller ved midterbenet passer til den
@@ -118,14 +128,16 @@ af første/sidste lamel.
 
 ## Forskelle fra standarddesignet — hurtig oversigt
 
-| | Standard (~72 kg) | Let (~54 kg) |
+| | Standard (~72 kg) | Let (~52 kg) |
 |---|---|---|
 | Ramme | 45 × 120 | 45 × 95 |
 | Lameller | 17 × 45×70 på højkant | 17 × 45×45 kvadratisk |
 | Midtersupport | ingen | drager 45×70 + midterben |
+| Ben | 4 × 70×70 (trykimpr. stolpe) | 4 × 45×95 af **afskær** ♻️ (ubeh., ingen lim) |
 | Sovehøjde (bund) | 340 mm | 315 mm |
 | Spalte | ~63 mm | ~63 mm |
-| Pris (Silvan, jul. 2026) | ~1.590 kr | ~1.690 kr |
+| Pris (Silvan, jul. 2026) | ~1.590 kr | ~1.623 kr |
 
-Vægtbesparelsen (~18 kg) er gevinsten — prisen er ~100 kr højere, fordi 45×45
-er dyr pr. bræt. Se [BOM_let.md](BOM_let.md) for indkøbsliste og forbehold.
+Vægtbesparelsen (~20 kg) er gevinsten, og benene er nu 100 % ubehandlede afskær
+(ingen trykimprægneret stolpe, ingen lim). Prisen er stort set den samme. Se
+[BOM_let.md](BOM_let.md) for indkøbsliste og forbehold.
