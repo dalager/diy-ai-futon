@@ -8,6 +8,10 @@ Three detail panels:
   C  Hjoerne (gavl-snit)       - frame->leg holes and their heights
 """
 
+import os
+
+_CAD = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cad")
+
 # ---- parameters (mirror build_bed.py) --------------------------------------
 slat_t, slat_h = 45.0, 45.0
 gap = 62.8
@@ -219,7 +223,7 @@ text(eXp(855), dyE + 82, "Lamel → midterdrager: 1 skrue 4,5×70 lodret ned mid
      "centerlinje. Midterdrager → midterben: 2 skruer 4,5×70 lodret ned (dragerhøjde 45 mm giver nu fat).", 11, "middle", "#333")
 
 W, H = 1060, 1250
-out = "/home/dalager/projects/seng/cad/seng_let_boreplan.svg"
+out = os.path.join(_CAD, "seng_let_boreplan.svg")
 body = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
         f'<rect x="0" y="0" width="{W}" height="{H}" fill="#ffffff"/>',
         f'<text x="{W/2}" y="40" font-family="Helvetica,Arial,sans-serif" font-size="21" '

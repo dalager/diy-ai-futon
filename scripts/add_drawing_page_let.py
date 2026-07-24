@@ -10,11 +10,13 @@ Run AFTER build_bed.py and make_drawing.py:
 Re-runnable: it removes any existing TechDraw objects first.
 """
 
+import os
 import FreeCAD as App
 
-FCSTD = "/home/dalager/projects/seng/cad/seng_let.FCStd"
-SVG = "/home/dalager/projects/seng/cad/seng_let_tegning.svg"
-SVG_BORE = "/home/dalager/projects/seng/cad/seng_let_boreplan.svg"
+_CAD = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cad")
+FCSTD = os.path.join(_CAD, "seng_let.FCStd")
+SVG = os.path.join(_CAD, "seng_let_tegning.svg")
+SVG_BORE = os.path.join(_CAD, "seng_let_boreplan.svg")
 TMPL_DIR = App.getResourceDir() + "Mod/TechDraw/Templates/ISO"
 TMPL_BLANK = TMPL_DIR + "/A3_Landscape_blank.svg"
 TMPL_TITLE = TMPL_DIR + "/A3_Landscape_TD.svg"

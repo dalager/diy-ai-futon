@@ -4,6 +4,10 @@ parameters used by build_bed.py. Pure Python, no FreeCAD needed.
     python3 scripts/make_drawing.py
 """
 
+import os
+
+_CAD = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cad")
+
 # ------------------------------------------------------------- parameters (mm)
 clearance = 200.0
 rail_h = 95.0                            # slimmer frame (light variant)
@@ -235,7 +239,7 @@ for i, nline in enumerate(notes):
 svg.append('</g>')
 
 W, H = 1240, int(ey + Zmax * S + 90)
-out = "/home/dalager/projects/seng/cad/seng_let_tegning.svg"
+out = os.path.join(_CAD, "seng_let_tegning.svg")
 header = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
           f'width="{W}" height="{H}">')
 body = [header, f'<rect x="0" y="0" width="{W}" height="{H}" fill="#ffffff"/>',

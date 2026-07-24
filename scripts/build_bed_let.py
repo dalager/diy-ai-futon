@@ -39,7 +39,7 @@ beam_z = ledger_top - P["drager_h"]                # 205 (>= clearance 200)
 beam_y0 = (outer_w - P["drager_t"]) / 2.0          # 877.5
 cx_len = P["outer_len"] / 2.0                       # 1000
 
-OUT_DIR = "/home/dalager/projects/seng/cad"
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cad")
 FCSTD = os.path.join(OUT_DIR, "seng_let.FCStd")
 STEP = os.path.join(OUT_DIR, "seng_let.step")
 
