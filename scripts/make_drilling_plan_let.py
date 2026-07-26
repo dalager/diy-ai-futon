@@ -82,7 +82,7 @@ led_h_px = ledger_t * sa
 cx = [ax + 70 + i * pitch * sa for i in range(3)]
 # ledger band behind
 rect(ax, led_y, (cx[2] - ax) + 70, led_h_px, C_LEDGER, "#222", 0.7)
-text(ax + 6, led_y + led_h_px + 16, f"støtteliste ({ledger_t:.0f} bred)", 11, "start", "#555")
+text(ax + 6, led_y + led_h_px + 16, f"liste {ledger_t:.0f}", 11, "start", "#555")  # kort, ellers dækker lamel 0 den
 # slats + holes
 for i, x in enumerate(cx):
     rect(x - slat_t * sa / 2, slat_top_y, slat_t * sa, slat_len, C_SLAT, "#555", 0.8)
@@ -94,8 +94,35 @@ dim_h(cx[0], cx[1], slat_top_y - 12, f"{pitch:.0f}  (c/c lameller)")
 dim_h(cx[1] - pair_dx * sa, cx[1] + pair_dx * sa, led_y + led_h_px + 34, "24", above=False)
 dim_h(cx[2] - slat_t * sa / 2, cx[2] + slat_t * sa / 2, slat_top_y - 12, "45")
 dim_h(cx[1] + slat_t * sa / 2, cx[2] - slat_t * sa / 2, slat_top_y + slat_len + 34, f"{gap:.0f}", above=False)
-text(ax, ay + 180, "2 skruer 4,5 × 70 pr. ende · Ø4 forbor i listen (= afstands-jig) · forbor lamel 3 mm",
+text(ax, ay + 210, "2 spånskruer 4,5 × 60 pr. ende — lodret gennem listens 45 mm HØJDE + 15 mm op i lamellen.",
      11, "start", "#333")
+text(ax, ay + 227, "Ø5 GENNEMGANG i listen (= afstands-jig) · Ø3 pilot 20 mm i lamellen · Ø10 forsænk under listen.",
+     11, "start", "#c0392b")
+
+# ============================================================= Bordiametre (legende)
+lx, ly = 690, 105
+rect(lx, ly, 345, 346, "#fbf8f1", "#c0392b", 1.0)
+text(lx + 16, ly + 24, "BORDIAMETRE — fyr/gran, spånskruer", 13, "start", "#111", "bold")
+for i, (_d, _s) in enumerate([
+        ("Ø5", "gennemgang, 4,5 mm skruer — altid"),
+        ("Ø5,5", "gennemgang, de 6 stk. 5 mm skruer"),
+        ("Ø3", "pilot i den FJERNE del (4,5 mm skruer)"),
+        ("Ø3,5", "pilot i ENDETRÆ (5 mm skruer), 40 mm"),
+        ("Ø10", "forsænk, 4,5-hoveder (Ø9)"),
+        ("Ø11", "forsænk, 5,0-hoveder (Ø10)"),
+        ("Ø2,5", "pilot til vinkelbeslagets korte skruer"),
+        ("Ø11", "boltehul, M10×160 på vange-aksen"),
+        ("Ø9", "boltehul, M8×100 på endestykke-aksen")]):
+    _y = ly + 50 + i * 19
+    text(lx + 16, _y, _d, 11.5, "start", "#c0392b", "bold")
+    text(lx + 56, _y, _s, 11.5, "start", "#333")
+text(lx + 16, ly + 224, "Gennemgang = skruediameter + 0,5 mm · pilot ≈ 65 % af Ø.", 10.5, "start", "#555")
+text(lx + 16, ly + 241, "Uden gennemgangshul griber gevindet i den nære del og jækker", 10.5, "start", "#555")
+text(lx + 16, ly + 256, "delene fra hinanden i stedet for at spænde dem sammen.", 10.5, "start", "#555")
+text(lx + 16, ly + 276, "Forsænk med ÉN kegleforsænker 90° Ø16: Ø16 er keglens", 10.5, "start", "#555")
+text(lx + 16, ly + 291, "største mål, ikke hullets — Ø10/Ø11 er to dybder.", 10.5, "start", "#555")
+text(lx + 16, ly + 313, "Længder: 4,5×60 til lamellerne · 4,5×50 KUN til", 10.5, "start", "#111", "bold")
+text(lx + 16, ly + 329, "støtteliste→vange · 5×80 til de 6 i ENDETRÆ.", 10.5, "start", "#111", "bold")
 
 # ============================================================= Panel B
 sb = 0.135
@@ -106,11 +133,15 @@ rect(bx, by, led_len_mm * sb, 20, C_LEDGER, "#222", 0.8)
 hx = [bx + (x - led_start) * sb for x in ledger_screws_x]
 for x in hx:
     circ(x, by + 10, 4)
-dim_h(bx, hx[0], by + 40, "190", above=False)
+dim_h(bx, hx[0], by + 40, "190")          # label over stregen, ellers støder den ind i "330 (c/c)"
 dim_h(hx[0], hx[1], by + 40, "330 (c/c)", above=False)
 dim_h(bx, bx + led_len_mm * sb, by - 8, f"{led_len_mm:.0f} (liste)")
-text(bx, by + 66, "Skru fra listens inderside vandret ind i vangen (skjult under lamellerne).",
+text(bx, by + 66, "6 × spånskrue 4,5 × 50 fra listens inderside vandret ind i vangen (skjult under lamellerne).",
      11, "start", "#333")
+text(bx, by + 83, "IKKE 70 her: 21 mm liste + 45 mm vange = 66 mm stak — en 70'er stikker 4 mm ud på vangens yderside.",
+     11, "start", "#c0392b")
+text(bx, by + 100, "Ø5 GENNEMGANG i listen · Ø3 pilot 35 mm i vangen · Ø10 forsænk i listens inderside.",
+     11, "start", "#c0392b")
 
 # ============================================================= Panel C (bolt)
 scc = 0.62
@@ -136,16 +167,15 @@ text(cX(92), cZ(clearance * 0.5), "ben 45×95", 11, "middle", "#333")
 # floor
 line(cX(-18), floorC, cX(175), floorC, "#111", 1.6)
 text(cX(-16), floorC + 15, "gulv", 10, "start", "#555")
-# 2 through-bolts (Ø11) through vange(45) + leg(95) = 140 mm, nut in Ø20 counterbore
+# 2 through-bolts (Ø11) through vange(45) + leg(95) = 140 mm; M10x160 -> 20 mm ude
 for z in z_vange:
-    line(cX(-8), cZ(z), cX(140), cZ(z), "#c0392b", 1.8)   # bolt shank
+    line(cX(-8), cZ(z), cX(162), cZ(z), "#c0392b", 1.8)   # bolt shank, M10x160
     circ(cX(-8), cZ(z), 5, "#f3d6d6", "#c0392b")          # dome head (outside)
-    # Ø20 counterbore pocket cut into inner face (y 125..140)
-    rect(cX(125), cZ(z) - 10 * scc, 15 * scc, 20 * scc, "#ffffff", "#c0392b", 1.0, dash="3,2")
-    # washer + nut recessed in the pocket
-    rect(cX(127), cZ(z) - 6, 11 * scc, 12 * scc, "#dbeaf2", "#1f6f9c", 1.2)
-text(cX(140) + 6, cZ(z_vange[1]), "møtrik + skive", 10, "start", "#1f6f9c")
-text(cX(140) + 6, cZ(z_vange[1]) + 14, "i Ø20 forsænkning", 10, "start", "#1f6f9c")
+    # skive + moetrik + kontramoetrik UDEN paa benets inderside (y 140..158,5)
+    rect(cX(140), cZ(z) - 7, 18.5 * scc, 14, "#dbeaf2", "#1f6f9c", 1.2)
+text(cX(140) + 8, cZ(z_vange[1]) - 4, "skive + møtrik", 10, "start", "#1f6f9c")
+text(cX(140) + 8, cZ(z_vange[1]) + 9, "+ kontramøtrik", 10, "start", "#1f6f9c")
+text(cX(140) + 8, cZ(z_vange[1]) + 22, "INGEN forsænkning", 10, "start", "#c0392b")
 # dims
 dim_v(cZ(z_vange[0]), floorC, cX(-8) - 16, f"{z_vange[0]:.0f}")
 dim_v(cZ(z_vange[1]), floorC, cX(-8) - 46, f"{z_vange[1]:.0f}")
@@ -153,21 +183,22 @@ dim_v(cZ(z_vange[0]), cZ(clearance), cX(-8) - 76, "30")
 dim_v(cZ(z_vange[1]), cZ(z_vange[0]), cX(-8) - 104, "45")
 dim_v(cZ(clearance), floorC, cX(175) + 22, f"{clearance:.0f}", left=False)
 dim_h(cX(0), cX(140), cZ(ftop) - 14, "Ø11 hul gennem 140 mm (45+95)")
-text(Cx0 - 60, floorC + 40, "VANGE-AKSE: M10×140 bolt gennem vange (45) + ben (95) = 140 mm. Fordi "
-     "bolten præcis fylder hullet, sidder møtrik + skive i en Ø20 forsænkning (~15 mm dyb) "
-     "boret i benets inderflade. Bræddebolt-hoved udenpå vangen.", 11, "start", "#333")
-text(Cx0 - 60, floorC + 58, "ENDESTYKKE-AKSE (vinkelret): M10×100 bolt gennem endestykke (45) + ben (45) = 90 mm "
-     "— møtrik fladt, INGEN forsænkning (en 140 mm bolt ville stritte ~50 mm ind under lamellen). "
-     f"Højder 15/50, forskudt fra vange-boltene ({z_vange[0]:.0f}/{z_vange[1]:.0f}) så de ikke krydser.",
-     11, "start", "#333")
+text(Cx0 - 60, floorC + 40, "VANGE-AKSE: M10×160 bolt gennem vange (45) + ben (95) = 140 mm træ. "
+     "Der stikker 20 mm ud på benets inderside:", 11, "start", "#333")
+text(Cx0 - 60, floorC + 58, "skive 2,5 + møtrik 8 + KONTRAMØTRIK 8 = 18,5 mm — reelt plant. INGEN forsænkning "
+     "(en M10×140 har nul gevind til møtrikken).", 11, "start", "#333")
+text(Cx0 - 60, floorC + 78, "ENDESTYKKE-AKSE (vinkelret): M8×100 i Ø9-hul gennem endestykke (45) + ben (45) = 90 mm "
+     "— møtrik + STOR skive fladt, INGEN forsænkning", 11, "start", "#333")
+text(Cx0 - 60, floorC + 96, "(en 140 mm bolt ville stritte ~50 mm ind under lamellen). Højder 15/50, "
+     f"forskudt fra vange-boltene ({z_vange[0]:.0f}/{z_vange[1]:.0f}).", 11, "start", "#333")
 
 # ============================================================= Panel D
-text(130, 900, "D · Boltplacering på vange og endestykke — opstalt udefra", 15, "start", "#111", "bold")
+text(130, 930, "D · Boltplacering på vange og endestykke — opstalt udefra", 15, "start", "#111", "bold")
 sd = 0.40
 dxD = 130
 
 # --- vange (2010 x 95), set udefra; hoejder maalt fra underkant
-dyV = 995
+dyV = 1025
 
 
 def vXp(x):
@@ -187,13 +218,13 @@ dim_h(vXp(0), vXp(67), dyV + 16, "67", above=False)
 dim_h(vXp(1933), vXp(2000), dyV + 16, "67", above=False)
 dim_v(vZp(30), dyV, vXp(67) - 26, "30")
 dim_v(vZp(75), vZp(30), vXp(67) - 54, "45")
-text(vXp(1000), dyV + 40, "4 × M10×140 gennemgående pr. vange (gennem 45+95=140 mm ben). Højder fra underkant.",
+text(vXp(1000), dyV + 40, "4 × M10×160 gennemgående pr. vange (gennem 45+95=140 mm træ). Højder fra underkant.",
      11, "middle", "#333")
-text(vXp(1000), dyV + 58, "På benets INDERSIDE: bor Ø20 forsænkning ~15 mm dyb ved hvert hul til møtrik + skive.",
+text(vXp(1000), dyV + 58, "INGEN forsænkning: M10×160 stikker 20 mm ud på benets INDERSIDE til skive + 2 møtrikker.",
      11, "middle", "#c0392b")
 
 # --- endestykke (1810 x 95) inkl. midterdrager-skruer
-dyE = 1130
+dyE = 1160
 
 
 def eXp(y):
@@ -216,13 +247,16 @@ dim_h(eXp(1663), eXp(1710), dyE + 16, "47", above=False)
 dim_h(eXp(0), eXp(855), dyE + 36, "855 (midt)", above=False)
 dim_v(eZp(15), dyE, eXp(47) - 26, "15")
 dim_v(eZp(50), eZp(15), eXp(47) - 54, "35")
-text(eXp(855), dyE + 62, "M10×100 hjørnebolte i højde 15/50 (gennem 45+45=90 mm ben, møtrik fladt, INGEN forsænkning) · "
-     "blå: 2 skruer 4,5×70 (Ø4 forbor) midtfor i højde 23/47 ind i midterdragerens endetræ (+ vinkelbeslag).",
-     11, "middle", "#333")
-text(eXp(855), dyE + 82, "Lamel → midterdrager: 1 skrue 4,5×70 lodret ned midt i hver lamel, langs dragerens "
-     "centerlinje. Midterdrager → midterben: 2 skruer 4,5×70 lodret ned (dragerhøjde 45 mm giver nu fat).", 11, "middle", "#333")
+text(eXp(855), dyE + 62, "M8×100 hjørnebolte i Ø9-hul, højde 15/50 (gennem 45+45=90 mm ben, møtrik + stor "
+     "skive fladt, INGEN forsænkning).", 11, "middle", "#333")
+text(eXp(855), dyE + 80, "Blå: 2 skruer 5×80 midtfor i højde 23/47 ind i midterdragerens ENDETRÆ "
+     "(+ vinkelbeslag) — Ø5,5 gennemgang i endestykket, Ø3,5 pilot i endetræet.", 11, "middle", "#333")
+text(eXp(855), dyE + 98, "Lamel → midterdrager: 1 skrue 4,5×60 lodret ned midt i hver lamel, langs "
+     "dragerens centerlinje —", 11, "middle", "#333")
+text(eXp(855), dyE + 116, "Ø5 gennem lamellen, forsænk 2–3 mm UNDER sovefladen. Midterdrager → midterben: "
+     "2 skruer 5×80 lodret ned, Ø3,5 pilot i benets endetræ (kun 7,5 mm til kanten!).", 11, "middle", "#333")
 
-W, H = 1060, 1250
+W, H = 1060, 1330
 out = os.path.join(_CAD, "seng_let_boreplan.svg")
 body = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
         f'<rect x="0" y="0" width="{W}" height="{H}" fill="#ffffff"/>',

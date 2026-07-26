@@ -41,12 +41,19 @@ RENDERINGS = [
     ("seng_let_04_plan.png", "Plan (ovenfra)"),
     ("seng_let_07_understel.png", "Understel (lameller skjult)"),
     ("seng_let_06_detalje_hjoerne.png", "Hjørnedetalje"),
-    ("seng_let_08_forsaenkning.png", "Ben m. Ø20-forsænkning"),
+    ("seng_let_08_forsaenkning.png", "Ben m. de 4 bolthuller"),
 ]
 
 MD_FILES = [
     ("sengebund_let.md", "Sengebund LET"),
     ("BOM_let.md", "Materialeliste (BOM)"),
+]
+
+# Tegninger (SVG) - én pr. side, bagest i dokumentet.
+PLANS = [
+    ("seng_let_tegning.svg", "Tegning — opstalt og plan"),
+    ("seng_let_boreplan.svg", "Boreplan — bolte og skruer"),
+    ("seng_let_liste_boreplan.svg", "Boreplan — støttelistens lamelhuller"),
 ]
 
 MD_EXTENSIONS = ["tables", "fenced_code", "sane_lists", "attr_list", "md_in_html"]
@@ -75,6 +82,21 @@ def renderings_html():
         f'<div class="grid">{"".join(figs)}</div>'
         "</section>"
     )
+
+
+def plans_html():
+    pages = []
+    for fn, caption in PLANS:
+        src = os.path.join(ROOT, "cad", fn)
+        if not os.path.exists(src):
+            print(f"  ! mangler tegning: {src}", file=sys.stderr)
+            continue
+        pages.append(
+            f'<section class="plan"><h2 class="section-title">{caption}</h2>'
+            f'<img src="{src}" alt="{caption}"/>'
+            f'<div class="plan-src">{fn}</div></section>'
+        )
+    return "".join(pages)
 
 
 STYLESHEET = """
@@ -114,6 +136,17 @@ figure.shot img {
 }
 figure.shot figcaption {
     font-size: 8.5pt; color: #555; text-align: center; margin-top: 1mm;
+}
+
+/* ---- tegninger (SVG), én pr. side ---- */
+section.plan { break-before: page; }
+section.plan img {
+    display: block; width: 100%; height: auto;
+    border: 1px solid #ddd; background: #fff; border-radius: 2px;
+}
+.plan-src {
+    font-family: "DejaVu Sans Mono", monospace; font-size: 8pt;
+    color: #999; text-align: right; margin-top: 1.5mm;
 }
 
 /* ---- document sections ---- */
@@ -164,6 +197,7 @@ def build_html():
     ]
     for rel_path, _label in MD_FILES:
         parts.append(f'<div class="doc">{md_to_html(rel_path)}</div>')
+    parts.append(plans_html())
     return (
         "<!doctype html><html><head><meta charset='utf-8'></head>"
         f"<body>{''.join(parts)}</body></html>"

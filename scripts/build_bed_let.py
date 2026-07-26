@@ -134,41 +134,40 @@ B00, B01, B10, B11 = O("Ben_00"), O("Ben_01"), O("Ben_10"), O("Ben_11")
 LA, LB = O("Stoetteliste_A"), O("Stoetteliste_B")
 DR, MB = drager_box, O("Midterben")
 
-# corner M10 through-bolts (Ø11).
-#   vange bolt  : gennem vange(45) + ben(95) = 140 mm -> moetrik i Ø20 forsaenkning
-#   endestykke  : gennem endestykke(45) + ben(45) = 90 mm -> moetrik direkte, ingen forsaenkning
-BOLT_R = 5.5                       # Ø11
-CB_R = 10.0                        # Ø20 forsaenkning t. moetrik + skive
-CB_DEPTH = 15.0                    # dybde ind i benet fra inderfladen
+# corner through-bolts. NO counterbores anywhere:
+#   vange bolt  : M10x160 i Ø11 gennem vange(45) + ben(95) = 140 mm trae
+#                 -> 20 mm gevind stikker ud paa benets inderside til skive + 2 moetrikker.
+#                 En M10x140 ender plant med traeet og har nul gevind til moetrikken, og en
+#                 Ø20-lomme i benet loeser det ikke: en M10-moetrik kraever en top paa 23-25 mm,
+#                 og en stoerre lomme bryder ind i endestykke-boltens hul 15 mm under.
+#   endestykke  : M8x100 i Ø9 gennem endestykke(45) + ben(45) = 90 mm -> moetrik + stor skive fladt
+BOLT_R = 5.5                       # Ø11, vange-aksen (M10)
+EBOLT_R = 4.5                      # Ø9, endestykke-aksen (M8)
 C = P["clearance"]
 Z_V = (C + 30, C + 75)             # 230 / 275
 Z_E = (C + 15, C + 50)             # 215 / 250 (below slats, staggered)
 
 
-def vbolt(leg, vange, xc, y_inner, ydir):
-    # runs in Y through vange + 95 mm leg; counterbore the nut at the inner face
+def vbolt(leg, vange, xc, ydir):
+    # runs in Y through vange + 95 mm leg; bolt protrudes, nothing recessed
     y0 = -2.0 if ydir > 0 else outer_w + 2.0
     for z in Z_V:
         screw([vange, leg], (xc, y0, z), (0, ydir, 0), rt + leg_sy + 10, BOLT_R)
-        cb0 = y_inner - ydir * CB_DEPTH
-        screw([leg], (xc, cb0, z), (0, ydir, 0), CB_DEPTH + 8, CB_R)
 
 
 def ebolt(leg, ende, yc, xdir):
-    # runs in X through endestykke + 45 mm leg; no counterbore needed
+    # runs in X through endestykke + 45 mm leg
     x0 = -2.0 if xdir > 0 else P["outer_len"] + 2.0
     for z in Z_E:
-        screw([ende, leg], (x0, yc, z), (xdir, 0, 0), rt + leg_sx + 10, BOLT_R)
+        screw([ende, leg], (x0, yc, z), (xdir, 0, 0), rt + leg_sx + 10, EBOLT_R)
 
 
-# leg inner faces:  front y=rt+leg_sy(140)  back y=outer_w-rt-leg_sy(1760)
-yF, yB = rt + leg_sy, outer_w - rt - leg_sy
 xcL, xcR = rt + leg_sx / 2.0, P["outer_len"] - rt - leg_sx / 2.0     # 67.5 / 1942.5
 ycF, ycB = rt + leg_sy / 2.0, outer_w - rt - leg_sy / 2.0            # 92.5 / 1807.5
-vbolt(B00, VA, xcL, yF, 1);   ebolt(B00, E1, ycF, 1)
-vbolt(B10, VA, xcR, yF, 1);   ebolt(B10, E2, ycF, -1)
-vbolt(B01, VB, xcL, yB, -1);  ebolt(B01, E1, ycB, 1)
-vbolt(B11, VB, xcR, yB, -1);  ebolt(B11, E2, ycB, -1)
+vbolt(B00, VA, xcL, 1);   ebolt(B00, E1, ycF, 1)
+vbolt(B10, VA, xcR, 1);   ebolt(B10, E2, ycF, -1)
+vbolt(B01, VB, xcL, -1);  ebolt(B01, E1, ycB, 1)
+vbolt(B11, VB, xcR, -1);  ebolt(B11, E2, ycB, -1)
 
 # ledger -> vange
 z_led_mid = ledger_z + P["ledger_h"] / 2.0

@@ -232,7 +232,7 @@ notes = [
     "Let variant: 45x45 lameller + midterdrager",
     "på ét midterben (halverer lamelspændet).",
     "Ben af afskær (45x95) — ubehandlet, ingen lim.",
-    "Vange-bolt: møtrik i Ø20 forsænkning i benet.",
+    "Vange-bolt: M10\u00d7160, 20 mm gevind ude \u2014 ingen fors\u00e6nkning.",
 ]
 for i, nline in enumerate(notes):
     text(0, len(rows) * rh + 14 + i * 18, nline, 12, "start", "#333")

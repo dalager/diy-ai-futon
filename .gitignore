@@ -7,3 +7,4 @@ ruvector.db
 .agents/skills/ruflo
 *.FCBak
 __pycache__
+docs/
