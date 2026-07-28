@@ -96,9 +96,10 @@ og ben, når møtrikken ikke gevindet. Spænd vange-boltene først, så hjørnet
 gange over. Men **skiven skal være stor**: en M8-planskive er kun Ø16, og møtrikken
 trækker sig ind i træet.
 
-**Firkanthalsen bider kun let:** M10-halsen er ~11,9 mm i et Ø11-hul, M8-halsen ~9,2 mm
-i et Ø9-hul. Bank bolten i med en hammer, før du spænder, og hold hovedet med en tang,
-hvis den snurrer med.
+**Firkanthalsen bider IKKE i disse huller.** M10-halsen er ~11,9 mm og M8-halsen ~9,2 mm
+— begge nu 1–2 mm mindre end hullerne (Ø12 hhv. Ø10), fordi Ø11/Ø9-bor ikke altid kan
+skaffes. Uden den bidende pasning kan bolten snurre med, når du spænder møtrikken: hold
+hovedet med en fastnøgle eller en tang.
 
 ## Skæreplan
 
@@ -158,13 +159,15 @@ eneste samlinger, der går i **endetræ**, hvor holdeevnen er 50–75 % af sidet
 | Støtteliste → vange | 12 | 4,5 × 50 | **Ø5** vandret gennem 21 mm liste | **Ø3** × 35 mm i vange | Ø10 i listens inderside |
 | Midterdrager → endestykke | 4 | **5 × 80** | **Ø5,5** gennem 45 mm endestykke | **Ø3,5** × 40 mm i dragerens **endetræ** | **Ø11** på gavlens yderside |
 | Midterdrager → midterben | 2 | **5 × 80** | **Ø5,5** gennem 45 mm drager | **Ø3,5** × 40 mm i benets **endetræ** | **Ø11** i dragerens overkant |
-| Vange → ben | 8 bolte | **M10×160** | **Ø11** gennem 45+95 | — | ingen — 20 mm gevind ude |
-| Endestykke → ben | 8 bolte | **M8×100** | **Ø9** gennem 45+45 | — | ingen — møtrik fladt |
+| Vange → ben | 8 bolte | **M10×160** | **Ø12** gennem 45+95 | — | ingen — 20 mm gevind ude |
+| Endestykke → ben | 8 bolte | **M8×100** | **Ø10** gennem 45+45 | — | ingen — møtrik fladt |
 | Vinkelbeslag | 2 stk. | beslagskruer | — | Ø2,5 | — |
 
-**Bor du skal have:** Ø2,5 · Ø3 · **Ø3,5** · Ø5 · **Ø5,5** · **Ø9** · Ø11 · plus **én
+**Bor du skal have:** Ø2,5 · Ø3 · **Ø3,5** · Ø5 · **Ø5,5** · **Ø10** · Ø12 · plus **én
 kegleforsænker 90°, Ø16, HSS, sekskantskaft** (~60–100 kr). Ø20-forstneren er ikke
-længere nødvendig.
+længere nødvendig. (Ø9/Ø11 er den "rigtige" gennemgangsstørrelse for M8/M10, men ikke
+altid til at få — Ø10/Ø12 er næste almindelige størrelse op, se advarslen om
+firkanthalsen og boltkrydset i benene nedenfor.)
 
 **Køb ikke et kombineret undersænkbor.** De borer forhul og forsænker i én bevægelse med
 én diameter — men her skal den nære del have Ø5 gennemgang og den fjerne Ø3 pilot, to
@@ -223,5 +226,6 @@ boltens hul 15 mm under. M10×160 løser det uden lommer.
   L/300. Uproblematisk under en eftergivende futon; vil du have mere stivhed, kan
   drageren sættes på højkant som 45×70 (koster 20 mm frihøjde under midten).
 - **Boltkryds i benene:** vange- og endestykke-bolte passerer hinanden med kun
-  15 mm lodret afstand (5 mm træ mellem Ø11- og Ø9-hullet). Bor vinkelret (borelære/
-  søjleboremaskine) og bor alle 4 huller i et ben, før boltene monteres.
+  15 mm lodret afstand — kun **4 mm** træ mellem Ø12- og Ø10-hullet (var 5 mm ved
+  Ø11/Ø9). Bor vinkelret (borelære/søjleboremaskine) og bor alle 4 huller i et ben,
+  før boltene monteres — marginen er blevet mindre, så det er endnu vigtigere nu.

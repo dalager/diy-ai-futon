@@ -135,14 +135,16 @@ LA, LB = O("Stoetteliste_A"), O("Stoetteliste_B")
 DR, MB = drager_box, O("Midterben")
 
 # corner through-bolts. NO counterbores anywhere:
-#   vange bolt  : M10x160 i Ø11 gennem vange(45) + ben(95) = 140 mm trae
+#   vange bolt  : M10x160 i Ø12 gennem vange(45) + ben(95) = 140 mm trae (Ø11 er ikke
+#                 altid til at faa; Ø12 er den naeste almindelige boerstoerrelse op)
 #                 -> 20 mm gevind stikker ud paa benets inderside til skive + 2 moetrikker.
 #                 En M10x140 ender plant med traeet og har nul gevind til moetrikken, og en
 #                 Ø20-lomme i benet loeser det ikke: en M10-moetrik kraever en top paa 23-25 mm,
 #                 og en stoerre lomme bryder ind i endestykke-boltens hul 15 mm under.
-#   endestykke  : M8x100 i Ø9 gennem endestykke(45) + ben(45) = 90 mm -> moetrik + stor skive fladt
-BOLT_R = 5.5                       # Ø11, vange-aksen (M10)
-EBOLT_R = 4.5                      # Ø9, endestykke-aksen (M8)
+#   endestykke  : M8x100 i Ø10 gennem endestykke(45) + ben(45) = 90 mm -> moetrik + stor skive fladt
+#                 (Ø9 er ikke altid til at faa; Ø10 er naeste almindelige boerstoerrelse op)
+BOLT_R = 6.0                       # Ø12, vange-aksen (M10)
+EBOLT_R = 5.0                      # Ø10, endestykke-aksen (M8)
 C = P["clearance"]
 Z_V = (C + 30, C + 75)             # 230 / 275
 Z_E = (C + 15, C + 50)             # 215 / 250 (below slats, staggered)

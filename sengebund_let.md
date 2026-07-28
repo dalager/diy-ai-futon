@@ -106,8 +106,8 @@ Kort statik-tjek (fyr, E ≈ 10 GPa), verificeret mod CAD-modellens geometri:
 | Støtteliste → vange | spånskrue 4,5 × **50** | 2 × 6 = 12 | vandret, fra listens inderside → 29 mm i vangen |
 | Midterdrager → endestykke | spånskrue **5 × 80** + **vinkelbeslag** | 4 + 2 beslag | vandret gennem endestykke → 35 mm i dragerens endetræ; beslag tager lasten |
 | Midterdrager → midterben | spånskrue **5 × 80** lodret ned | 2 | ned gennem 45 mm drager → 35 mm i benets endetræ |
-| Vange → ben (95mm-akse) | **M10×160 bræddebolt + skive + møtrik + kontramøtrik** | 4 × 2 = 8 | Ø11, højde 230/275, 20 mm gevind ude på benets inderside — **ingen forsænkning** |
-| Endestykke → ben (45mm-akse) | **M8×100 bræddebolt, gennemgående** | 4 × 2 = 8 | **Ø9**, højde 215/250 i endetræet (fri af lamellerne ved x≥115), møtrik + stor skive fladt, ingen forsænkning |
+| Vange → ben (95mm-akse) | **M10×160 bræddebolt + skive + møtrik + kontramøtrik** | 4 × 2 = 8 | Ø12, højde 230/275, 20 mm gevind ude på benets inderside — **ingen forsænkning** |
+| Endestykke → ben (45mm-akse) | **M8×100 bræddebolt, gennemgående** | 4 × 2 = 8 | **Ø10**, højde 215/250 i endetræet (fri af lamellerne ved x≥115), møtrik + stor skive fladt, ingen forsænkning |
 
 ### Tre skruelængder — og hvorfor
 
@@ -146,8 +146,8 @@ de 17 ned i drageren.
 | Støtteliste → vange | 12 | 4,5 × 50 | **Ø5** vandret gennem 21 mm liste | **Ø3** × 35 mm i vange | Ø10 i listens inderside |
 | Midterdrager → endestykke | 4 | **5 × 80** | **Ø5,5** gennem 45 mm endestykke | **Ø3,5** × 40 mm i dragerens **endetræ** | **Ø11** på gavlens yderside |
 | Midterdrager → midterben | 2 | **5 × 80** | **Ø5,5** gennem 45 mm drager | **Ø3,5** × 40 mm i benets **endetræ** | **Ø11** i dragerens overkant |
-| Vange → ben | 8 bolte | **M10×160** | **Ø11** gennem 45+95 | — | ingen — 20 mm gevind ude |
-| Endestykke → ben | 8 bolte | **M8×100** | **Ø9** gennem 45+45 | — | ingen — møtrik fladt |
+| Vange → ben | 8 bolte | **M10×160** | **Ø12** gennem 45+95 | — | ingen — 20 mm gevind ude |
+| Endestykke → ben | 8 bolte | **M8×100** | **Ø10** gennem 45+45 | — | ingen — møtrik fladt |
 | Vinkelbeslag | 2 stk. | beslagskruer | — | Ø2,5 | — |
 
 Tommelfingerreglerne bag tallene, i fyr/gran: gennemgang = skruediameter + 0,5 mm;
@@ -155,10 +155,12 @@ pilot ≈ 65 % af skruediameteren (Ø3 til en 4,5, Ø3,5 til en 5); forsænkning
 skruediameteren. **Forsænk dog til Ø11 for 5×80-skruerne** — deres hoved er Ø10, så en
 Ø10-forsænkning er lige præcis for lille. De 4,5-skruer har Ø9-hoved, hvor Ø10 rækker.
 
-**Bor du skal bruge:** Ø2,5 · Ø3 · Ø3,5 · Ø5 · Ø5,5 · **Ø9** · Ø11 · plus **én
+**Bor du skal bruge:** Ø2,5 · Ø3 · Ø3,5 · Ø5 · Ø5,5 · **Ø10** · Ø12 · plus **én
 kegleforsænker 90°, Ø16, HSS, sekskantskaft**. Ø3,5 og Ø5,5 er udelukkende til de 6
-lange 5 mm-skruer; Ø9 kun til de 8 endestykke-bolte. **Ingen Ø20-forstner** — den hørte
-til den forsænkede møtrik, som er droppet.
+lange 5 mm-skruer; Ø10 kun til de 8 endestykke-bolte, Ø12 kun til de 8 vange-bolte.
+(Ø9/Ø11 er den "rigtige" størrelse for M8/M10, men ikke altid til at få — Ø10/Ø12 er
+næste almindelige størrelse op, se boltkryds-advarslen nedenfor.) **Ingen Ø20-forstner**
+— den hørte til den forsænkede møtrik, som er droppet.
 
 **Forsænkeren er ét bor, ikke to.** Ø16 er keglens største diameter, ikke hullets — du
 styrer diameteren med dybden, så Ø10 og Ø11 er samme bor i to dybder. 90° er vinklen på
@@ -204,7 +206,8 @@ forborede huller er selv afstands-jiggen for lamellerne.
   Kontramøtrikken er værd at have — ubehandlet fyr svinder det første år, og boltede
   træsamlinger løsner sig, når træet krymper.
 - **Endestykke-aksen:** **M8 × 100** gennem endestykke (45) + ben (**45**) = 90 mm —
-  møtrik + stor skive (Ø24) sidder fladt på indersiden, ingen forsænkning. Hul **Ø9**.
+  møtrik + stor skive (Ø24) sidder fladt på indersiden, ingen forsænkning. Hul **Ø10**
+  (Ø9 er den "rigtige" størrelse, men ikke altid til at få).
   Der er kun **1,5 mm til overs**, så ingen kontramøtrik og ingen nyloc på den akse —
   og hjørnet skal presses helt sammen, før møtrikken sættes på. **Brug ikke M10×140
   her** — den ville stritte ~50 mm bar gevind ind under lamellen (rammer den lige
@@ -222,9 +225,11 @@ samlingen end boltdiameteren.
 ### Tre ting man skal vide, før man borer/skruer
 
 1. **Boltkryds i benene:** vange- og endestykke-boltene krydser hinanden
-   vinkelret inde i benet med kun **15 mm lodret afstand** (5 mm træ mellem
-   Ø11- og Ø9-hullet, parret 230/215). Bor vinkelret — borelære eller
-   søjleboremaskine — og bor alle 4 huller i et ben, **før** boltene sættes i.
+   vinkelret inde i benet med kun **15 mm lodret afstand** — kun **4 mm** træ
+   mellem Ø12- og Ø10-hullet (parret 230/215; var 5 mm ved Ø11/Ø9). Bor
+   vinkelret — borelære eller søjleboremaskine — og bor alle 4 huller i et
+   ben, **før** boltene sættes i. Marginen er blevet mindre, så dette er
+   endnu vigtigere nu.
 2. **Midterdrager → midterben skrues lodret ovenfra:** drageren er kun 45 mm
    høj, så en 5 × 80 ned gennem drageren får 35 mm fat i benet (2 skruer,
    modellens lodrette huller ved midterbenet). Ingen vinkelbeslag nødvendigt her —

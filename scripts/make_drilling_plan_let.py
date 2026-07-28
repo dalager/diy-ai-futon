@@ -101,7 +101,8 @@ text(ax, ay + 227, "Ø5 GENNEMGANG i listen (= afstands-jig) · Ø3 pilot 20 mm 
 
 # ============================================================= Bordiametre (legende)
 lx, ly = 690, 105
-rect(lx, ly, 345, 346, "#fbf8f1", "#c0392b", 1.0)
+LEGEND_H = 398
+rect(lx, ly, 345, LEGEND_H, "#fbf8f1", "#c0392b", 1.0)
 text(lx + 16, ly + 24, "BORDIAMETRE — fyr/gran, spånskruer", 13, "start", "#111", "bold")
 for i, (_d, _s) in enumerate([
         ("Ø5", "gennemgang, 4,5 mm skruer — altid"),
@@ -111,8 +112,8 @@ for i, (_d, _s) in enumerate([
         ("Ø10", "forsænk, 4,5-hoveder (Ø9)"),
         ("Ø11", "forsænk, 5,0-hoveder (Ø10)"),
         ("Ø2,5", "pilot til vinkelbeslagets korte skruer"),
-        ("Ø11", "boltehul, M10×160 på vange-aksen"),
-        ("Ø9", "boltehul, M8×100 på endestykke-aksen")]):
+        ("Ø12", "boltehul, M10×160 på vange-aksen"),
+        ("Ø10", "boltehul, M8×100 på endestykke-aksen")]):
     _y = ly + 50 + i * 19
     text(lx + 16, _y, _d, 11.5, "start", "#c0392b", "bold")
     text(lx + 56, _y, _s, 11.5, "start", "#333")
@@ -123,6 +124,9 @@ text(lx + 16, ly + 276, "Forsænk med ÉN kegleforsænker 90° Ø16: Ø16 er keg
 text(lx + 16, ly + 291, "største mål, ikke hullets — Ø10/Ø11 er to dybder.", 10.5, "start", "#555")
 text(lx + 16, ly + 313, "Længder: 4,5×60 til lamellerne · 4,5×50 KUN til", 10.5, "start", "#111", "bold")
 text(lx + 16, ly + 329, "støtteliste→vange · 5×80 til de 6 i ENDETRÆ.", 10.5, "start", "#111", "bold")
+text(lx + 16, ly + 351, "BOR-LÆNGDER (gennemgang/pilot-dybde):", 10.5, "start", "#1f6f9c", "bold")
+text(lx + 16, ly + 366, "Ø5 21–45 · Ø5,5 45 · Ø3 20–35 · Ø3,5 40 · Ø2,5 ≈15 (mm)", 10.5, "start", "#1f6f9c")
+text(lx + 16, ly + 381, "Ø10 90 mm gennem · Ø12 140 mm gennem — kræver LANGT bor!", 10.5, "start", "#c0392b", "bold")
 
 # ============================================================= Panel B
 sb = 0.135
@@ -167,7 +171,7 @@ text(cX(92), cZ(clearance * 0.5), "ben 45×95", 11, "middle", "#333")
 # floor
 line(cX(-18), floorC, cX(175), floorC, "#111", 1.6)
 text(cX(-16), floorC + 15, "gulv", 10, "start", "#555")
-# 2 through-bolts (Ø11) through vange(45) + leg(95) = 140 mm; M10x160 -> 20 mm ude
+# 2 through-bolts (Ø12) through vange(45) + leg(95) = 140 mm; M10x160 -> 20 mm ude
 for z in z_vange:
     line(cX(-8), cZ(z), cX(162), cZ(z), "#c0392b", 1.8)   # bolt shank, M10x160
     circ(cX(-8), cZ(z), 5, "#f3d6d6", "#c0392b")          # dome head (outside)
@@ -182,15 +186,54 @@ dim_v(cZ(z_vange[1]), floorC, cX(-8) - 46, f"{z_vange[1]:.0f}")
 dim_v(cZ(z_vange[0]), cZ(clearance), cX(-8) - 76, "30")
 dim_v(cZ(z_vange[1]), cZ(z_vange[0]), cX(-8) - 104, "45")
 dim_v(cZ(clearance), floorC, cX(175) + 22, f"{clearance:.0f}", left=False)
-dim_h(cX(0), cX(140), cZ(ftop) - 14, "Ø11 hul gennem 140 mm (45+95)")
+dim_h(cX(0), cX(140), cZ(ftop) - 14, "Ø12 hul gennem 140 mm (45+95)")
 text(Cx0 - 60, floorC + 40, "VANGE-AKSE: M10×160 bolt gennem vange (45) + ben (95) = 140 mm træ. "
      "Der stikker 20 mm ud på benets inderside:", 11, "start", "#333")
 text(Cx0 - 60, floorC + 58, "skive 2,5 + møtrik 8 + KONTRAMØTRIK 8 = 18,5 mm — reelt plant. INGEN forsænkning "
      "(en M10×140 har nul gevind til møtrikken).", 11, "start", "#333")
-text(Cx0 - 60, floorC + 78, "ENDESTYKKE-AKSE (vinkelret): M8×100 i Ø9-hul gennem endestykke (45) + ben (45) = 90 mm "
+text(Cx0 - 60, floorC + 78, "ENDESTYKKE-AKSE (vinkelret): M8×100 i Ø10-hul gennem endestykke (45) + ben (45) = 90 mm "
      "— møtrik + STOR skive fladt, INGEN forsænkning", 11, "start", "#333")
 text(Cx0 - 60, floorC + 96, "(en 140 mm bolt ville stritte ~50 mm ind under lamellen). Højder 15/50, "
      f"forskudt fra vange-boltene ({z_vange[0]:.0f}/{z_vange[1]:.0f}).", 11, "start", "#333")
+
+# ============================================================= Panel C2 (bolt, endestykke-akse)
+# Samme gulvlinje og skala som Panel C, sat ved siden af i den ledige kolonne
+# under BORDIAMETRE-boksen (ingen ny raekke -> ingen ekstra sidehoejde).
+scc2 = scc
+Cx0_2, floorC2 = 830, floorC
+
+
+def cX2(y):
+    return Cx0_2 + y * scc2
+
+
+def cZ2(z):
+    return floorC2 - z * scc2
+
+
+text(700, cZ2(ftop) - 58, "C2 · Hjørne (endestykke-akse)", 13, "start", "#111", "bold")
+text(700, cZ2(ftop) - 42, "bolt gennem 45+45 mm ben", 11, "start", "#111", "bold")
+# endestykke cross-section (X 0..45) and 45x45-side leg (X 45..90, Z 0..ftop)
+rect(cX2(0), cZ2(ftop), 45 * scc2, (ftop - clearance) * scc2, C_RAIL, "#222", 1.0)
+text(cX2(22), cZ2(ftop - 8), "ende", 9, "middle", "#333")
+rect(cX2(45), cZ2(ftop), 45 * scc2, ftop * scc2, C_LEG, "#222", 1.0)
+text(cX2(67), cZ2(clearance * 0.5), "ben 45×95", 10, "middle", "#333")
+line(cX2(-14), floorC2, cX2(112), floorC2, "#111", 1.6)
+# 2 through-bolts (Ø10) through endestykke(45) + leg(45) = 90 mm; M8x100 -> 10 mm ude
+for z in z_ende:
+    line(cX2(-8), cZ2(z), cX2(100), cZ2(z), "#c0392b", 1.8)   # bolt shank, M8x100
+    circ(cX2(-8), cZ2(z), 4.5, "#f3d6d6", "#c0392b")          # dome head (outside)
+    rect(cX2(90), cZ2(z) - 6, 10 * scc2, 12, "#dbeaf2", "#1f6f9c", 1.2)  # skive + moetrik
+text(cX2(90) + 6, cZ2(z_ende[1]) - 2, "skive + møtrik", 9, "start", "#1f6f9c")
+text(cX2(90) + 6, cZ2(z_ende[1]) + 11, "INGEN forsænkning", 9, "start", "#c0392b")
+# dims
+dim_v(cZ2(z_ende[0]), floorC2, cX2(-8) - 14, f"{z_ende[0]:.0f}")
+dim_v(cZ2(z_ende[1]), floorC2, cX2(-8) - 42, f"{z_ende[1]:.0f}")
+dim_v(cZ2(z_ende[0]), cZ2(clearance), cX2(-8) - 70, "15")
+dim_v(cZ2(z_ende[1]), cZ2(z_ende[0]), cX2(-8) - 98, "35")
+dim_h(cX2(0), cX2(90), cZ2(ftop) - 14, "Ø10 gennem 90 mm (45+45)")
+text(700, floorC2 + 15, "Se tekst ved Panel C: M8×100, INGEN forsænkning,", 9.5, "start", "#555")
+text(700, floorC2 + 28, "forskudt 15/50 fra vange-boltene (kryds i benet).", 9.5, "start", "#555")
 
 # ============================================================= Panel D
 text(130, 930, "D · Boltplacering på vange og endestykke — opstalt udefra", 15, "start", "#111", "bold")
@@ -247,7 +290,7 @@ dim_h(eXp(1663), eXp(1710), dyE + 16, "47", above=False)
 dim_h(eXp(0), eXp(855), dyE + 36, "855 (midt)", above=False)
 dim_v(eZp(15), dyE, eXp(47) - 26, "15")
 dim_v(eZp(50), eZp(15), eXp(47) - 54, "35")
-text(eXp(855), dyE + 62, "M8×100 hjørnebolte i Ø9-hul, højde 15/50 (gennem 45+45=90 mm ben, møtrik + stor "
+text(eXp(855), dyE + 62, "M8×100 hjørnebolte i Ø10-hul, højde 15/50 (gennem 45+45=90 mm ben, møtrik + stor "
      "skive fladt, INGEN forsænkning).", 11, "middle", "#333")
 text(eXp(855), dyE + 80, "Blå: 2 skruer 5×80 midtfor i højde 23/47 ind i midterdragerens ENDETRÆ "
      "(+ vinkelbeslag) — Ø5,5 gennemgang i endestykket, Ø3,5 pilot i endetræet.", 11, "middle", "#333")
