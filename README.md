@@ -24,27 +24,30 @@ boreplan, renderinger og en samlet PDF genereres af scripts.
 | Midtersupport | drager 45×45 + ét midterben |
 | Frihøjde | 200 mm under ramme / 205 mm under drager (robotstøvsuger) |
 | Ben | 4 × 45×95 af **afskær** ♻️ (ubehandlet, ingen lim) |
-| Pris (Silvan, jul. 2026) | ~1.631 kr |
+| Pris (jul. 2026) | ~1.650 kr (træ prischecket, skruer anslået) |
 
 ## Dokumenter
 
-- **[sengebund_let.md](sengebund_let.md)** — konstruktion, statik, samlinger, højder.
-- **[BOM_let.md](BOM_let.md)** — materialeliste, skæreplan, indkøb og forbehold.
-- **[cad/seng_let_dokumentation.pdf](cad/seng_let_dokumentation.pdf)** — samlet PDF med
-  renderinger øverst + begge dokumenter (genereres, se nedenfor).
+- **[byggevejledning.md](byggevejledning.md)** — vejledningen til udlevering: indkøb,
+  værktøj, skæreplan, boring, samling trin for trin, kontrol og statik-tjek.
+- **[cad/seng_let_dokumentation.pdf](cad/seng_let_dokumentation.pdf)** — byggevejledningen
+  som A4-PDF med renderinger og de fire målsatte tegninger bagest (genereres, se nedenfor).
+- **[designnoter.md](designnoter.md)** — arbejdsnote uden for PDF'en: hvorfor
+  konstruktionen ser ud som den gør, statik, dimensionering, forkastede løsninger og
+  indkøbsregnskab.
 
 ## Projektstruktur
 
 ```
 seng/
-├── sengebund_let.md              # hoveddokument (konstruktion + statik)
-├── BOM_let.md                    # materialeliste / indkøb
+├── byggevejledning.md            # byggevejledning (kilde til PDF'en)
+├── designnoter.md                # arbejdsnote (valg, statik, indkøbsregnskab)
 ├── scripts/
 │   ├── build_bed_let.py          # bygger 3D-modellen -> .FCStd + .step
 │   ├── make_drawing_let.py       # målsat tegning -> seng_let_tegning.svg
 │   ├── make_drilling_plan_let.py # boreplan -> seng_let_boreplan.svg
 │   ├── add_drawing_page_let.py   # TechDraw-sider ind i .FCStd
-│   └── make_pdf_let.py           # samlet PDF (renderinger + begge .md)
+│   └── make_pdf_let.py           # byggevejledning -> PDF (+ tegninger bagest)
 └── cad/
     ├── seng_let.FCStd            # FreeCAD-model (parametrisk, med huller)
     ├── seng_let.step             # neutral CAD-udveksling
@@ -74,7 +77,7 @@ python3 scripts/make_drilling_plan_let.py
 # 4. TechDraw-sider ind i .FCStd (headless FreeCAD)
 freecad.cmd scripts/add_drawing_page_let.py
 
-# 5. Samlet PDF (renderinger + begge .md)
+# 5. Byggevejledning som PDF (byggevejledning.md + de fire tegninger bagest)
 ~/.pyenv/versions/3.12.3/bin/python scripts/make_pdf_let.py
 ```
 
@@ -122,7 +125,7 @@ Farvepaletten (matcher tegningerne):
 - **Midterdrager 45×45** er et bevidst valg: den flush lamel ville med en 45×70-drager
   kun give 180 mm frihøjde under midten; 45×45 bevarer 205 mm og bruger samme profil
   som lamellerne. Til gengæld er drageren et grænsetilfælde omkring L/300 — se
-  statik-afsnittet i [sengebund_let.md](sengebund_let.md).
+  statik-afsnittet i [designnoter.md](designnoter.md).
 
 ## Licens
 

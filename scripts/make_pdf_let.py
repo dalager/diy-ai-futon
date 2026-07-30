@@ -1,8 +1,7 @@
-"""Generér en samlet PDF for LET-varianten:
+"""Generér byggevejledningen som PDF (den udleveringsklare version):
 
-    1. FreeCAD-renderinger (cad/screenshots/*.png) i toppen
-    2. sengebund_let.md
-    3. BOM_let.md
+    1. byggevejledning.md (renderinger ligger inline i markdown'en)
+    2. de fire målsatte SVG-tegninger, én pr. side, bagest
 
 Markdown -> HTML (python-markdown, GFM-tabeller + fenced code) -> PDF (WeasyPrint).
 Kræver pakkerne `markdown` og `weasyprint`. De ligger i pyenv-miljøet 3.12.3:
@@ -10,6 +9,10 @@ Kræver pakkerne `markdown` og `weasyprint`. De ligger i pyenv-miljøet 3.12.3:
     ~/.pyenv/versions/3.12.3/bin/python scripts/make_pdf_let.py
 
 Output: cad/seng_let_dokumentation.pdf
+
+designnoter.md er arbejdsnote (konstruktionsvalg, statik, indkøb) og kommer *ikke* med i
+PDF'en. Tidligere blev PDF'en bygget af sengebund_let.md + BOM_let.md, som overlappede
+hinanden og gjorde dokumentet dobbelt så langt som nødvendigt.
 """
 
 import os
@@ -26,32 +29,15 @@ except ModuleNotFoundError as e:  # pragma: no cover - miljø-hjælp
     )
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SHOTS = os.path.join(ROOT, "cad", "screenshots")
 OUT = os.path.join(ROOT, "cad", "seng_let_dokumentation.pdf")
 
-DOC_TITLE = "Christians Sengebund"
-DOC_SUBTITLE = "Futon 180 × 200 cm · ubehandlet fyr/gran · ben af afskær ♻️"
+GUIDE = "byggevejledning.md"
 
-# Renderinger i toppen (fil, billedtekst). Rækkefølge = visningsrækkefølge.
-RENDERINGS = [
-    ("seng_let_01_iso.png", "Isometrisk"),
-    ("seng_let_05_dimetrisk.png", "Dimetrisk"),
-    ("seng_let_02_langside.png", "Langside (opstalt)"),
-    ("seng_let_03_gavl.png", "Gavl (ende)"),
-    ("seng_let_04_plan.png", "Plan (ovenfra)"),
-    ("seng_let_07_understel.png", "Understel (lameller skjult)"),
-    ("seng_let_06_detalje_hjoerne.png", "Hjørnedetalje"),
-    ("seng_let_08_forsaenkning.png", "Ben m. de 4 bolthuller"),
-]
+DOC_SUBTITLE = "Byggevejledning · ubehandlet fyr/gran · ben af afskær ♻️"
 
-MD_FILES = [
-    ("sengebund_let.md", "Sengebund LET"),
-    ("BOM_let.md", "Materialeliste (BOM)"),
-]
-
-# Tegninger (SVG) - én pr. side, bagest i dokumentet.
+# Tegninger (SVG) - én pr. side, bagest i dokumentet (afsnit 7 henviser til dem).
 PLANS = [
-    ("seng_let_tegning.svg", "Tegning — opstalt og plan"),
+    ("seng_let_tegning.svg", "Tegning — mål, plan og opstalt"),
     ("seng_let_boreplan.svg", "Boreplan — bolte og skruer"),
     ("seng_let_liste_boreplan.svg", "Boreplan — støttelistens lamelhuller"),
     ("seng_let_drager_boreplan.svg", "Boreplan — midterdrager → endestykke (vinkelbeslag)"),
@@ -63,26 +49,9 @@ MD_EXTENSIONS = ["tables", "fenced_code", "sane_lists", "attr_list", "md_in_html
 def md_to_html(rel_path):
     with open(os.path.join(ROOT, rel_path), encoding="utf-8") as f:
         text = f.read()
-    return markdown.markdown(text, extensions=MD_EXTENSIONS)
-
-
-def renderings_html():
-    figs = []
-    for fn, caption in RENDERINGS:
-        src = os.path.join(SHOTS, fn)
-        if not os.path.exists(src):
-            print(f"  ! mangler rendering: {src}", file=sys.stderr)
-            continue
-        figs.append(
-            f'<figure class="shot"><img src="{src}" alt="{caption}"/>'
-            f'<figcaption>{caption}</figcaption></figure>'
-        )
-    return (
-        '<section class="renderings">'
-        '<h2 class="section-title">FreeCAD-renderinger</h2>'
-        f'<div class="grid">{"".join(figs)}</div>'
-        "</section>"
-    )
+    html = markdown.markdown(text, extensions=MD_EXTENSIONS)
+    # Undertitel lige under dokumentets h1 (forsiden).
+    return html.replace("</h1>", f'</h1><p class="cover-sub">{DOC_SUBTITLE}</p>', 1)
 
 
 def plans_html():
@@ -105,7 +74,7 @@ STYLESHEET = """
     size: A4;
     margin: 16mm 15mm 18mm 15mm;
     @bottom-center {
-        content: "Sengebund LET · side " counter(page) " / " counter(pages);
+        content: "Sengebund til futon 180 × 200 cm · side " counter(page) " / " counter(pages);
         font: 8pt "DejaVu Sans", sans-serif;
         color: #888;
     }
@@ -118,29 +87,34 @@ body {
     color: #1a1a1a;
 }
 
-/* ---- title block ---- */
-.cover-title { font-size: 24pt; font-weight: bold; margin: 0 0 2mm 0; }
-.cover-sub   { font-size: 11pt; color: #555; margin: 0 0 6mm 0; }
+/* ---- forside ---- */
+h1 {
+    font-size: 23pt; font-weight: bold; color: #6b4f2a;
+    margin: 0 0 1.5mm 0; padding-bottom: 0; border: 0;
+}
+.cover-sub { font-size: 11pt; color: #555; margin: 0 0 5mm 0; }
 
-/* ---- renderings grid ---- */
-.section-title {
-    font-size: 13pt; margin: 0 0 3mm 0; padding-bottom: 1.5mm;
-    border-bottom: 2px solid #b99763; color: #6b4f2a;
-}
-.grid {
+/* ---- billedrækker (renderinger inline i markdown) ---- */
+.figrow {
     display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;
+    margin: 3mm 0; break-inside: avoid;
 }
-figure.shot { margin: 0; break-inside: avoid; }
-figure.shot img {
+.figrow.one { grid-template-columns: 62% ; justify-content: center; }
+.figrow figure { margin: 0; break-inside: avoid; }
+.figrow img {
     width: 100%; height: auto; border: 1px solid #ccc;
     background: #fff; border-radius: 2px;
 }
-figure.shot figcaption {
+.figrow figcaption {
     font-size: 8.5pt; color: #555; text-align: center; margin-top: 1mm;
 }
 
 /* ---- tegninger (SVG), én pr. side ---- */
 section.plan { break-before: page; }
+.section-title {
+    font-size: 13pt; margin: 0 0 3mm 0; padding-bottom: 1.5mm;
+    border-bottom: 2px solid #b99763; color: #6b4f2a;
+}
 section.plan img {
     display: block; width: 100%; height: auto;
     border: 1px solid #ddd; background: #fff; border-radius: 2px;
@@ -150,14 +124,24 @@ section.plan img {
     color: #999; text-align: right; margin-top: 1.5mm;
 }
 
-/* ---- document sections ---- */
-.doc { break-before: page; }
-h1 { font-size: 17pt; color: #6b4f2a; margin: 0 0 3mm 0;
-     border-bottom: 2px solid #b99763; padding-bottom: 1.5mm; }
-h2 { font-size: 13pt; color: #333; margin: 6mm 0 2mm 0; }
-h3 { font-size: 11pt; color: #444; margin: 4mm 0 1.5mm 0; }
+/* ---- afsnit ---- */
+h2 {
+    font-size: 14pt; color: #6b4f2a; margin: 7mm 0 2.5mm 0;
+    padding-bottom: 1.5mm; border-bottom: 2px solid #b99763;
+    break-after: avoid;
+}
+h2.newpage { break-before: page; margin-top: 0; }
+h3 {
+    font-size: 11.5pt; color: #333; margin: 5mm 0 1.5mm 0;
+    break-after: avoid;
+}
+h3.newpage { break-before: page; margin-top: 0; }
 p { margin: 1.8mm 0; }
 a { color: #1a5f9c; text-decoration: none; }
+.colophon {
+    margin-top: 7mm; padding-top: 2mm; border-top: 1px solid #ddd;
+    font-size: 8.5pt; color: #777;
+}
 
 /* ---- tables ---- */
 table {
@@ -191,14 +175,7 @@ strong { color: #111; }
 
 
 def build_html():
-    parts = [
-        f'<div class="cover-title">{DOC_TITLE}</div>',
-        f'<div class="cover-sub">{DOC_SUBTITLE}</div>',
-        renderings_html(),
-    ]
-    for rel_path, _label in MD_FILES:
-        parts.append(f'<div class="doc">{md_to_html(rel_path)}</div>')
-    parts.append(plans_html())
+    parts = [md_to_html(GUIDE), plans_html()]
     return (
         "<!doctype html><html><head><meta charset='utf-8'></head>"
         f"<body>{''.join(parts)}</body></html>"
