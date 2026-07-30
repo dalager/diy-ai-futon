@@ -1,11 +1,17 @@
-"""Generate a dimensioned drilling plan (SVG) for the screw holes.
+"""Generate dimensioned drilling plans (SVG) for the screw holes.
 
-    python3 scripts/make_drilling_plan.py  ->  cad/seng_boreplan.svg
+    python3 scripts/make_drilling_plan.py  ->  cad/seng_let_boreplan.svg
+                                            ->  cad/seng_let_drager_boreplan.svg
 
-Three detail panels:
+Main sheet (seng_let_boreplan.svg) - detail panels:
   A  Lamelhuller (plan)        - slat->ledger holes, pitch & pair spacing
   B  Stoetteliste -> vange     - ledger->rail holes along the length
   C  Hjoerne (gavl-snit)       - frame->leg holes and their heights
+  D  Boltplacering (vange/endestykke, udefra)
+
+Second sheet (seng_let_drager_boreplan.svg) - own page/file so the tall main
+sheet still fits a single A4 page in make_pdf_let.py:
+  E  Midterdrager -> endestykke - vinkelbeslag (montage paa siden)
 """
 
 import os
@@ -311,3 +317,115 @@ body.append('</svg>')
 with open(out, "w") as f:
     f.write("\n".join(body))
 print("SAVED", out, W, "x", H)
+
+# ============================================================= Panel E (egen tegning/side)
+# Midterdrager -> endestykke: vinkelbeslag. Egen fil/side, da den lange A-D-tegning
+# allerede fylder en hel A4-side i make_pdf_let.py (billede kan ikke deles over sider).
+svg = []
+
+C_BEAM = "#c2a266"
+rail_t = 45.0
+outer_w_e = 1800.0
+drager_t_e = 45.0
+beam_y0_e = (outer_w_e - drager_t_e) / 2.0            # 877.5
+bracket_leg, bracket_w, bracket_t = 50.0, 35.0, 2.0    # Simpson AC35350: A=B=50, C=35, t=2 mm
+
+se = 1.5
+Ex0, Ey0 = 160, 130
+seg_x0, seg_y0 = -30.0, 775.0
+BOARD_Y0, BOARD_Y1 = 790.0, 1000.0   # synligt Y-udsnit af endestykke/lamel (210 mm)
+
+
+def eX(xmm):
+    return Ex0 + (xmm - seg_x0) * se
+
+
+def eY(ymm):
+    return Ey0 + (ymm - seg_y0) * se
+
+
+def dot(x, y, r=2.2, fill="#fff", stroke="#1f4e6b", sw=1.0):
+    svg.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="{fill}" '
+               f'stroke="{stroke}" stroke-width="{sw}"/>')
+
+
+corner_x, corner_y = rail_t, beam_y0_e   # (45, 877.5) — hjørnet beslaget monteres i
+
+rect(eX(0), eY(BOARD_Y0), rail_t * se, (BOARD_Y1 - BOARD_Y0) * se, C_RAIL, "#222", 1.0)
+text(eX(22), eY(BOARD_Y0) + 16, "endestykke", 10, "middle", "#333")
+rect(eX(led_start), eY(BOARD_Y0), slat_t * se, (BOARD_Y1 - BOARD_Y0) * se, "none", "#999", 0.8, "4,3")
+text(eX(led_start + slat_t / 2), eY(BOARD_Y0) + 16, "lamel 0", 10, "middle", "#777")
+rect(eX(rail_t), eY(beam_y0_e), 150 * se, drager_t_e * se, C_BEAM, "#222", 0.9)
+text(eX(rail_t + 105), eY(beam_y0_e + drager_t_e / 2) + 4, "midterdrager", 11, "middle", "#7a5")
+
+# de to eksisterende 5x80-skruer (samme som Panel D), her i plan
+scr_y = beam_y0_e + drager_t_e / 2.0                   # 900 (dragerens midte)
+circ(eX(22.5), eY(scr_y), 4)
+line(eX(22.5), eY(scr_y), eX(68), eY(scr_y), "#c0392b", 1.4, "5,3")
+text(eX(22.5), eY(scr_y) + 18, "2 × 5×80 (kote 223/247)", 10.5, "middle", "#c0392b")
+
+# vinkelbeslaget: monteret PÅ SIDEN af drageren, ikke ovenpå/under
+rect(eX(corner_x), eY(corner_y - bracket_leg), max(bracket_t * se, 3), bracket_leg * se,
+     "#5a7d9a", "#1f4e6b", 1.0)
+rect(eX(corner_x), eY(corner_y - bracket_t), bracket_leg * se, max(bracket_t * se, 3),
+     "#5a7d9a", "#1f4e6b", 1.0)
+
+dim_v(eY(corner_y - bracket_leg), eY(corner_y), eX(corner_x) + 14, "50", left=False)
+dim_h(eX(corner_x), eX(corner_x + bracket_leg), eY(corner_y) + 10, "50", above=False)
+dim_h(eX(0), eX(led_start), eY(BOARD_Y0) - 10, f"{led_start:.0f} (hjørnezone)")
+
+notes_E = [
+    "Blåt = vinkelbeslag (Simpson AC35350) — 2 stk. i alt (1 pr. ende).",
+    "Monteret PÅ SIDEN af drageren, ikke ovenpå/under: bevarer de 205 mm frihøjde under midten.",
+    "Vinge 1 mod endestykkets inderside (skruer vandret, som de to 5×80) — vinge 2 mod dragerens sideflade.",
+    "Beslaget sidder i kote 210–245 (centreret i dragerens 45 mm højde); begge vinger skrues vandret ind i sidetræ.",
+    "Fastgørelse: Simpson TTUFP 4,0×20 beslagskruer, FLADT hoved (ikke undersænket) — Ø2,5 pilothul.",
+    "Begge beslag sidder samme side (mod vange A) — vælg i praksis den side der er nemmest at komme til.",
+]
+note_y0 = eY(BOARD_Y1) + 34
+for i, nline in enumerate(notes_E):
+    text(160, note_y0 + i * 17, nline, 10.5, "start", "#333")
+text(160, note_y0 + len(notes_E) * 17 + 5,
+     "Simpsons datablad anbefaler 2 beslag pr. samling (ét i hver side); denne BOM har kun 2 stk. i alt (1 pr. ende).",
+     10.5, "start", "#c0392b")
+text(160, note_y0 + len(notes_E) * 17 + 22,
+     "Overvej 2 ekstra beslag, hvis fuld anbefaling ønskes — koster lidt, øger sikkerhedsmargin på samlingen.",
+     10.5, "start", "#c0392b")
+
+# --- referencetegning: selve beslaget (Simpson AC35350), ren form ----------
+rx, ry = 560, 130
+REF_W, REF_H = 340, 260
+rect(rx, ry, REF_W, REF_H, "#fbf8f1", "#1f4e6b", 1.0)
+text(rx + 16, ry + 24, "REFERENCE — Simpson AC35350 vinkelbeslag", 12.5, "start", "#111", "bold")
+rs = 2.6
+bx0, by0 = rx + 60, ry + 55
+leg_px = 50 * rs
+thick_px = max(2 * rs, 4)
+rect(bx0, by0, thick_px, leg_px, "#5a7d9a", "#1f4e6b", 1.0)
+rect(bx0, by0 + leg_px - thick_px, leg_px, thick_px, "#5a7d9a", "#1f4e6b", 1.0)
+for off in (8, 20, 32, 44):
+    dot(bx0 + thick_px / 2, by0 + off * rs, 2.4)
+    dot(bx0 + off * rs, by0 + leg_px - thick_px / 2, 2.4)
+dot(bx0 + thick_px / 2, by0 + 25 * rs, 4.2)
+dot(bx0 + 25 * rs, by0 + leg_px - thick_px / 2, 4.2)
+notes_ref_y0 = by0 + leg_px + 20
+text(rx + 16, notes_ref_y0, "A = B = 50 mm · C (vinge-bredde) = 35 mm · t = 2 mm, varmforzinket stål",
+     10.5, "start", "#333")
+text(rx + 16, notes_ref_y0 + 17, "4 × Ø5 + 1 × Ø8,5 pr. vinge — Ø8,5-hullet er kun til M8-bolt (beton), bruges ikke her.",
+     10.5, "start", "#333")
+text(rx + 16, notes_ref_y0 + 34, "Hulplacering her er skematisk (efter produktfoto) — se Simpson-databladet for eksakte mål.",
+     10.5, "start", "#555")
+text(rx + 16, notes_ref_y0 + 51, "Brug de 4 × Ø5-huller pr. vinge til TTUFP-beslagskruerne.", 10.5, "start", "#555")
+
+W2, H2 = 1060, 680
+out2 = os.path.join(_CAD, "seng_let_drager_boreplan.svg")
+body2 = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W2} {H2}" width="{W2}" height="{H2}">',
+         f'<rect x="0" y="0" width="{W2}" height="{H2}" fill="#ffffff"/>',
+         f'<text x="{W2/2}" y="40" font-family="Helvetica,Arial,sans-serif" font-size="21" '
+         f'font-weight="bold" text-anchor="middle" fill="#111">'
+         f'Midterdrager → endestykke — vinkelbeslag (mål i mm)</text>']
+body2 += svg
+body2.append('</svg>')
+with open(out2, "w") as f:
+    f.write("\n".join(body2))
+print("SAVED", out2, W2, "x", H2)

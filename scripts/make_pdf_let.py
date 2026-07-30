@@ -54,6 +54,7 @@ PLANS = [
     ("seng_let_tegning.svg", "Tegning — opstalt og plan"),
     ("seng_let_boreplan.svg", "Boreplan — bolte og skruer"),
     ("seng_let_liste_boreplan.svg", "Boreplan — støttelistens lamelhuller"),
+    ("seng_let_drager_boreplan.svg", "Boreplan — midterdrager → endestykke (vinkelbeslag)"),
 ]
 
 MD_EXTENSIONS = ["tables", "fenced_code", "sane_lists", "attr_list", "md_in_html"]

@@ -49,7 +49,9 @@ seng/
     ├── seng_let.FCStd            # FreeCAD-model (parametrisk, med huller)
     ├── seng_let.step             # neutral CAD-udveksling
     ├── seng_let_tegning.svg      # målsat tegning
-    ├── seng_let_boreplan.svg     # boreplan
+    ├── seng_let_boreplan.svg     # boreplan (paneler A-D)
+    ├── seng_let_liste_boreplan.svg   # boreplan, støttelistens lamelhuller
+    ├── seng_let_drager_boreplan.svg  # boreplan, midterdrager -> endestykke (vinkelbeslag)
     ├── seng_let_dokumentation.pdf
     └── screenshots/              # 8 FreeCAD-renderinger (.png)
 ```
@@ -66,7 +68,7 @@ freecad.cmd scripts/build_bed_let.py
 # 2. Målsat tegning (ren Python) -> cad/seng_let_tegning.svg
 python3 scripts/make_drawing_let.py
 
-# 3. Boreplan (ren Python) -> cad/seng_let_boreplan.svg
+# 3. Boreplan (ren Python) -> cad/seng_let_boreplan.svg + cad/seng_let_drager_boreplan.svg
 python3 scripts/make_drilling_plan_let.py
 
 # 4. TechDraw-sider ind i .FCStd (headless FreeCAD)
