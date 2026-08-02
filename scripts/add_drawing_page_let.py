@@ -1,6 +1,6 @@
 """Add TechDraw drawing pages to cad/seng.FCStd (headless).
 
-Page 1  "Tegning_maalsat"  - the verified dimensioned SVG (cad/seng_tegning.svg)
+Page 1  "Tegning_maalsat"  - the verified dimensioned SVG (docs/tegning.svg)
                              embedded as a symbol -> permanent dimensions.
 Page 2  "Projektioner_3D"  - native 1:20 projected views (front/plan/end/iso),
                              3D-linked, ready to dimension interactively.
@@ -14,9 +14,10 @@ import os
 import FreeCAD as App
 
 _CAD = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cad")
+_DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")
 FCSTD = os.path.join(_CAD, "seng_let.FCStd")
-SVG = os.path.join(_CAD, "seng_let_tegning.svg")
-SVG_BORE = os.path.join(_CAD, "seng_let_boreplan.svg")
+SVG = os.path.join(_DOCS, "tegning.svg")
+SVG_BORE = os.path.join(_DOCS, "boreplan.svg")
 TMPL_DIR = App.getResourceDir() + "Mod/TechDraw/Templates/ISO"
 TMPL_BLANK = TMPL_DIR + "/A3_Landscape_blank.svg"
 TMPL_TITLE = TMPL_DIR + "/A3_Landscape_TD.svg"

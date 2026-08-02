@@ -1,6 +1,6 @@
 """Generate the ledger (stoetteliste) drilling sheet for the slat screws.
 
-    python3 scripts/make_ledger_drill_let.py  ->  cad/seng_let_liste_boreplan.svg
+    python3 scripts/make_ledger_drill_let.py  ->  docs/liste_boreplan.svg
 
 The 34 lamel holes are drilled into the ledger's THIN 21 mm underside, so this
 sheet gives their positions measured from one end of the 1770 mm ledger:
@@ -15,7 +15,7 @@ Geometry mirrors build_bed_let.py; keep the parameters below in sync with it.
 
 import os
 
-_CAD = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cad")
+_DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")
 
 # ---- parameters (mirror build_bed_let.py) ----------------------------------
 rail_t = 45.0
@@ -265,7 +265,7 @@ text(CX, _ty + 36, f"Midterste lamel (L8) sidder præcis på {xc[8]:.0f} mm = li
      11.5, "start", "#333")
 
 W, H = 1120, 1460
-out = os.path.join(_CAD, "seng_let_liste_boreplan.svg")
+out = os.path.join(_DOCS, "liste_boreplan.svg")
 body = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
         f'<rect x="0" y="0" width="{W}" height="{H}" fill="#ffffff"/>',
         f'<text x="{W/2}" y="42" font-family="Helvetica,Arial,sans-serif" font-size="21" '

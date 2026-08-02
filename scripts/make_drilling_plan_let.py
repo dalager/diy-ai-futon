@@ -1,22 +1,22 @@
 """Generate dimensioned drilling plans (SVG) for the screw holes.
 
-    python3 scripts/make_drilling_plan.py  ->  cad/seng_let_boreplan.svg
-                                            ->  cad/seng_let_drager_boreplan.svg
+    python3 scripts/make_drilling_plan.py  ->  docs/boreplan.svg
+                                            ->  docs/drager_boreplan.svg
 
-Main sheet (seng_let_boreplan.svg) - detail panels:
+Main sheet (boreplan.svg) - detail panels:
   A  Lamelhuller (plan)        - slat->ledger holes, pitch & pair spacing
   B  Stoetteliste -> vange     - ledger->rail holes along the length
   C  Hjoerne (gavl-snit)       - frame->leg holes and their heights
   D  Boltplacering (vange/endestykke, udefra)
 
-Second sheet (seng_let_drager_boreplan.svg) - own page/file so the tall main
+Second sheet (drager_boreplan.svg) - own page/file so the tall main
 sheet still fits a single A4 page in make_pdf_let.py:
   E  Midterdrager -> endestykke - vinkelbeslag (montage paa siden)
 """
 
 import os
 
-_CAD = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cad")
+_DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")
 
 # ---- parameters (mirror build_bed.py) --------------------------------------
 slat_t, slat_h = 45.0, 45.0
@@ -306,7 +306,7 @@ text(eXp(855), dyE + 116, "Ø5 gennem lamellen, forsænk 2–3 mm UNDER soveflad
      "2 skruer 5×80 lodret ned, Ø3,5 pilot i benets endetræ (kun 7,5 mm til kanten!).", 11, "middle", "#333")
 
 W, H = 1060, 1330
-out = os.path.join(_CAD, "seng_let_boreplan.svg")
+out = os.path.join(_DOCS, "boreplan.svg")
 body = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
         f'<rect x="0" y="0" width="{W}" height="{H}" fill="#ffffff"/>',
         f'<text x="{W/2}" y="40" font-family="Helvetica,Arial,sans-serif" font-size="21" '
@@ -418,7 +418,7 @@ text(rx + 16, notes_ref_y0 + 34, "Hulplacering her er skematisk (efter produktfo
 text(rx + 16, notes_ref_y0 + 51, "Brug de 4 × Ø5-huller pr. vinge til TTUFP-beslagskruerne.", 10.5, "start", "#555")
 
 W2, H2 = 1060, 680
-out2 = os.path.join(_CAD, "seng_let_drager_boreplan.svg")
+out2 = os.path.join(_DOCS, "drager_boreplan.svg")
 body2 = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W2} {H2}" width="{W2}" height="{H2}">',
          f'<rect x="0" y="0" width="{W2}" height="{H2}" fill="#ffffff"/>',
          f'<text x="{W2/2}" y="40" font-family="Helvetica,Arial,sans-serif" font-size="21" '

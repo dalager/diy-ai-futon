@@ -30,7 +30,7 @@ boreplan, renderinger og en samlet PDF genereres af scripts.
 
 - **[byggevejledning.md](byggevejledning.md)** — vejledningen til udlevering: indkøb,
   værktøj, skæreplan, boring, samling trin for trin, kontrol og statik-tjek.
-- **[cad/seng_let_dokumentation.pdf](cad/seng_let_dokumentation.pdf)** — byggevejledningen
+- **[docs/dokumentation.pdf](docs/dokumentation.pdf)** — byggevejledningen
   som A4-PDF med renderinger og de fire målsatte tegninger bagest (genereres, se nedenfor).
 - **[designnoter.md](designnoter.md)** — arbejdsnote uden for PDF'en: hvorfor
   konstruktionen ser ud som den gør, statik, dimensionering, forkastede løsninger og
@@ -44,20 +44,24 @@ seng/
 ├── designnoter.md                # arbejdsnote (valg, statik, indkøbsregnskab)
 ├── scripts/
 │   ├── build_bed_let.py          # bygger 3D-modellen -> .FCStd + .step
-│   ├── make_drawing_let.py       # målsat tegning -> seng_let_tegning.svg
-│   ├── make_drilling_plan_let.py # boreplan -> seng_let_boreplan.svg
+│   ├── make_drawing_let.py       # målsat tegning -> docs/tegning.svg
+│   ├── make_drilling_plan_let.py # boreplan -> docs/boreplan.svg
 │   ├── add_drawing_page_let.py   # TechDraw-sider ind i .FCStd
 │   └── make_pdf_let.py           # byggevejledning -> PDF (+ tegninger bagest)
-└── cad/
-    ├── seng_let.FCStd            # FreeCAD-model (parametrisk, med huller)
-    ├── seng_let.step             # neutral CAD-udveksling
-    ├── seng_let_tegning.svg      # målsat tegning
-    ├── seng_let_boreplan.svg     # boreplan (paneler A-D)
-    ├── seng_let_liste_boreplan.svg   # boreplan, støttelistens lamelhuller
-    ├── seng_let_drager_boreplan.svg  # boreplan, midterdrager -> endestykke (vinkelbeslag)
-    ├── seng_let_dokumentation.pdf
-    └── screenshots/              # 8 FreeCAD-renderinger (.png)
+├── cad/                          # kun CAD-kilder
+│   ├── seng_let.FCStd            # FreeCAD-model (parametrisk, med huller)
+│   ├── seng_let.step             # neutral CAD-udveksling
+│   └── screenshots/              # 8 FreeCAD-renderinger (.png)
+└── docs/                         # genererede tegninger + PDF
+    ├── tegning.svg               # målsat tegning
+    ├── boreplan.svg              # boreplan (paneler A-D)
+    ├── liste_boreplan.svg        # boreplan, støttelistens lamelhuller
+    ├── drager_boreplan.svg       # boreplan, midterdrager -> endestykke (vinkelbeslag)
+    └── dokumentation.pdf         # byggevejledningen
 ```
+
+`docs/` rummer desuden referencefotos af beslag og skruer (`*.png`), som er
+git-ignorerede — kun de genererede tegninger og PDF'en versionsstyres.
 
 ## Genopbygning af hele kæden
 
@@ -68,10 +72,10 @@ profiler). Ret dem og genkør kæden i rækkefølge:
 # 1. Byg 3D-modellen (headless FreeCAD) -> cad/seng_let.FCStd + .step
 freecad.cmd scripts/build_bed_let.py
 
-# 2. Målsat tegning (ren Python) -> cad/seng_let_tegning.svg
+# 2. Målsat tegning (ren Python) -> docs/tegning.svg
 python3 scripts/make_drawing_let.py
 
-# 3. Boreplan (ren Python) -> cad/seng_let_boreplan.svg + cad/seng_let_drager_boreplan.svg
+# 3. Boreplan (ren Python) -> docs/boreplan.svg + docs/drager_boreplan.svg
 python3 scripts/make_drilling_plan_let.py
 
 # 4. TechDraw-sider ind i .FCStd (headless FreeCAD)

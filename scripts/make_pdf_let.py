@@ -8,7 +8,7 @@ Kræver pakkerne `markdown` og `weasyprint`. De ligger i pyenv-miljøet 3.12.3:
 
     ~/.pyenv/versions/3.12.3/bin/python scripts/make_pdf_let.py
 
-Output: cad/seng_let_dokumentation.pdf
+Output: docs/dokumentation.pdf
 
 designnoter.md er arbejdsnote (konstruktionsvalg, statik, indkøb) og kommer *ikke* med i
 PDF'en. Tidligere blev PDF'en bygget af sengebund_let.md + BOM_let.md, som overlappede
@@ -29,18 +29,19 @@ except ModuleNotFoundError as e:  # pragma: no cover - miljø-hjælp
     )
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "cad", "seng_let_dokumentation.pdf")
+DOCS = os.path.join(ROOT, "docs")
+OUT = os.path.join(DOCS, "dokumentation.pdf")
 
 GUIDE = "byggevejledning.md"
 
 DOC_SUBTITLE = "Byggevejledning · ubehandlet fyr/gran · ben af afskær ♻️"
 
-# Tegninger (SVG) - én pr. side, bagest i dokumentet (afsnit 7 henviser til dem).
+# Tegninger (SVG) - én pr. side, bagest i dokumentet (afsnit 8 henviser til dem).
 PLANS = [
-    ("seng_let_tegning.svg", "Tegning — mål, plan og opstalt"),
-    ("seng_let_boreplan.svg", "Boreplan — bolte og skruer"),
-    ("seng_let_liste_boreplan.svg", "Boreplan — støttelistens lamelhuller"),
-    ("seng_let_drager_boreplan.svg", "Boreplan — midterdrager → endestykke (vinkelbeslag)"),
+    ("tegning.svg", "Tegning — mål, plan og opstalt"),
+    ("boreplan.svg", "Boreplan — bolte og skruer"),
+    ("liste_boreplan.svg", "Boreplan — støttelistens lamelhuller"),
+    ("drager_boreplan.svg", "Boreplan — midterdrager → endestykke (vinkelbeslag)"),
 ]
 
 MD_EXTENSIONS = ["tables", "fenced_code", "sane_lists", "attr_list", "md_in_html"]
@@ -57,7 +58,7 @@ def md_to_html(rel_path):
 def plans_html():
     pages = []
     for fn, caption in PLANS:
-        src = os.path.join(ROOT, "cad", fn)
+        src = os.path.join(DOCS, fn)
         if not os.path.exists(src):
             print(f"  ! mangler tegning: {src}", file=sys.stderr)
             continue
