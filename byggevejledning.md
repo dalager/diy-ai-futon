@@ -85,6 +85,33 @@ overalt — også under midten.
 **Træ i alt 1.376,40 kr** (Silvan, juli 2026, ekskl. levering). Der er kun to
 reglar-tværsnit at holde styr på: 45×45 til lameller og drager, 45×95 til rammen.
 
+### Vælg træ, der er lige — især de fire 45×95
+
+Reglar er en byggevare, ikke en møbelvare, og bunken i byggemarkedet er blandet. **Sortér
+selv, og læg de dårlige tilbage.** Sigt langs hvert bræt fra enden — først på fladen, så på
+højkant — og drej det derefter om sin egen akse. Læg det på et plant gulv og se, om det
+vipper på diagonalen.
+
+- **Vrid (snoning)** — enderne er drejet i forhold til hinanden. Den værste fejl her, og
+  den eneste, du ikke kan skrue væk.
+- **Svaj** — buet på højkant, "banan". Giver en ramme, hvis diagonaler ikke vil passe.
+- **Krumning** — buet på fladen. Til at leve med; skruerne trækker en mindre bue ud.
+- **Skålning** — hulning på tværs. Uden betydning i disse tværsnit.
+
+Det er **de fire 45×95** til vanger og endestykker, det gælder. De sætter rammens geometri,
+og et vrid dér forplanter sig gennem hele sengen: hjørnerne kommer skævt sammen, benene
+hælder en anelse, og støttelistens overkant følger vangens vrid, så lamelfladen ikke bliver
+helt plan. Sengen holder fint — de boltede hjørner er stærke nok til at tvinge træet på
+plads — men vridet kan ses. 45×45-lamellerne er mere tilgivende: de er understøttet tre
+steder og skruet fast i begge ender, så en let bue rettes ud af samlingen.
+
+Et roligt bræt kendes på, at årerne løber nogenlunde parallelt med kanten, at **marven**
+(den bløde kerne, der ses som tætte cirkelbuer i endetræet) ikke er med i brættet, og at
+det føles tørt og let. Marvholdt eller fugtigt træ vrider sig, når det tørrer — også efter
+sengen er bygget. Husk også, at benene skæres af afskærene: et vridt endestykke giver et
+vridt ben. Lad træet ligge en uges tid indendørs, hvor sengen skal stå, stablet plant og
+med luft omkring, før du skærer op — så sker det meste af bevægelsen, inden delene er i mål.
+
 ### Skruer, bolte og beslag
 
 | Vare | Køb | Bruges |
