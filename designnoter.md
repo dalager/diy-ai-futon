@@ -196,10 +196,6 @@ priser på skruer og beslag er ikke registreret.
 | NKT bræddebolt DIN 603 M10 × 160, 2-pak à 39,95 | 8 stk (4 pk) | **159,80 kr** |
 | Løse M10-møtrikker til kontramøtrik | 8 | ~25 kr |
 
-⚠️ **De 8 M10 × 140, der allerede er købt, skal byttes** — de kan ikke bruges, se
-forkastede løsninger. jem&fix har ikke M10×160 i storpakke, så 4 × 2-pak er den eneste vej
-til 8 stk.
-
 **I alt ca. 1.650 kr** for en 100 % ubehandlet, lim-fri sengebund med ben af genbrugte
 afskær.
 
